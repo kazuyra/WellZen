@@ -270,3 +270,42 @@ details {
 .placeholder {
   height: 120px;
 }
+/* Show dropdown only when .open is present (JS toggles this class) */
+.nav-more .more-menu { display: none; }
+.nav-more.open .more-menu { display: block; }
+
+/* Reveal-on-scroll animation (JS toggles .is-visible) */
+.reveal { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease; }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Spacing for signup success message */
+.signup-msg { margin-top: .5rem; display: block; }
+/* Tag buttons */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.25rem 0 2rem;
+}
+
+.tag {
+  font-size: 0.875rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid #ddd;
+  background: #f8f9fa;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.tag:hover {
+  background: #e8ecff;
+  border-color: #627bff;
+  color: #2d3df8;
+}
+
+.tag.is-active {
+  background: #2d3df8;
+  border-color: #2d3df8;
+  color: white;
+}
