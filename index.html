@@ -1,55 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Health Blog</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Teen Wellness — Health Education for Students</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- ================= NAV ================= -->
+  <header class="site-header">
+    <div class="container nav">
+      <a class="logo" href="index.html">TeenWell</a>
 
-    <header>
-        <h1>Student Health Blog</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="#posts">Posts</a>
-            <a href="#about">About</a>
-        </nav>
-    </header>
+      <nav class="nav-links">
+        <a class="active" href="index.html">Home</a>
+        <a href="WellZen/blog/">Blog</a>
+        <a href="WellZen/resources.html">Resources</a>
+        <div class="nav-more">
+          <button class="link more-toggle" aria-expanded="false">More ▾</button>
+          <div class="more-menu">
+            <a href="about.html">Mission</a>
+            <a href="about.html">Our approach</a>
+            <a href="roadmap.html">Roadmap</a>
+            <a href="#faq">FAQ</a>
+          </div>
+        </div>
+      </nav>
 
-    <section id="hero">
-        <h2>Simple Health Advice for Students</h2>
-        <p>Science-based health tips explained in a way teens understand.</p>
-    </section>
+      <div class="nav-cta">
+        <a class="btn btn-ghost" href="contact.html">Sign up</a>
+        <a class="btn" href="resources.html">Learn</a>
+      </div>
+    </div>
+  </header>
 
-    <section id="posts">
-        <h2>Recent Posts</h2>
-        <div class="post">
-            <h3>Why Sleep Matters for Students</h3>
-            <p>Better sleep = better grades, mood, and energy. Learn simple habits to sleep better.</p>
-            <button onclick="alert('Blog post coming soon!')">Read More</button>
+  <main id="home">
+    <!-- ================ HERO ================= -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-card">
+          <h1>Empowering teens to build healthier lives</h1>
+          <p>Science-backed health insights designed for students. Learn practical strategies to improve your physical and mental well-being.</p>
+          <div class="hero-actions">
+            <a class="btn" href="blog/">Explore</a>
+            <a class="btn btn-ghost" href="resources.html">Learn more</a>
+          </div>
         </div>
 
-        <div class="post">
-            <h3>Quick Ways to Reduce Stress During School</h3>
-            <p>School is stressful — here are fast science-backed tips to calm your brain.</p>
-            <button onclick="alert('Blog post coming soon!')">Read More</button>
+        <div class="hero-media placeholder-lg" aria-hidden="true">
+          <span>Image / Illustration</span>
         </div>
+      </div>
     </section>
 
-    <section id="about">
-        <h2>About This Project</h2>
-        <p>
-            I'm a high-school student passionate about health and science.  
-            This site simplifies medical info so students can understand their bodies 
-            and build healthier habits.
-        </p>
+    <!-- ============== MISSION STRIP ============== -->
+    <section id="mission" class="strip">
+      <div class="container strip-inner">
+        <p class="kicker">Mission</p>
+        <h2 class="h3">We believe in educating young people about holistic health through evidence-based information and practical guidance.</h2>
+        <div class="strip-actions">
+          <a class="btn btn-ghost" href="resources.html">Discover</a>
+          <a class="btn btn-ghost" href="about.html">Our story</a>
+        </div>
+      </div>
     </section>
 
-    <footer>
-        <p>© 2024 Student Health Blog</p>
-    </footer>
+    <!-- ============== APPROACH CARDS ============== -->
+    <section id="approach" class="container section">
+      <p class="kicker">Our approach</p>
+      <h2 class="h2">Why youth health matters</h2>
+      <p class="lead">Comprehensive resources for students seeking wellness knowledge.</p>
 
-    <script src="script.js"></script>
+      <div class="card-grid">
+        <article class="card">
+          <div class="card-icon">🎓</div>
+          <h3>Build college application credentials</h3>
+          <p>Demonstrate academic interest in health and scientific research.</p>
+          <a class="link" href="about.html">Learn →</a>
+        </article>
+
+        <article class="card">
+          <div class="card-icon">🧪</div>
+          <h3>Science-based lifestyle strategies</h3>
+          <p>Practical techniques for managing stress and improving overall well-being.</p>
+          <a class="link" href="blog/">Explore →</a>
+        </article>
+
+        <article class="card">
+          <div class="card-icon">💬</div>
+          <h3>Mental health support</h3>
+          <p>Understanding emotional wellness and developing resilience.</p>
+          <a class="link" href="contact.html">Connect →</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============== ARTICLES (TAGS + GRID) ============== -->
+    <section id="articles" class="container section">
+      <p class="kicker">Articles</p>
+      <h2 class="h2">Latest insights for teen wellness</h2>
+      <p class="muted">Discover expert-curated content to support your health journey.</p>
+
+      <div class="tag-row" role="list">
+        <button class="tag is-active" role="listitem" onclick="location.href='blog/'">View all</button>
+        <button class="tag" role="listitem" onclick="location.href='blog/'">Wellness</button>
+        <button class="tag" role="listitem" onclick="location.href='blog/'">Nutrition</button>
+        <button class="tag" role="listitem" onclick="location.href='blog/'">Mental health</button>
+        <button class="tag" role="listitem" onclick="location.href='blog/'">Lifestyle</button>
+      </div>
+
+      <div id="blog" class="post-grid">
+        <article class="post-card">
+          <div class="post-media placeholder" aria-hidden="true"></div>
+          <div class="post-body">
+            <p class="eyebrow">Wellness · 5 min read</p>
+            <h3>Understanding sleep cycles for teens</h3>
+            <p class="muted">Explore the science behind healthy sleep patterns and their impact on academic performance.</p>
+            <a class="link" href="blog/sleep-better.html">Read more →</a>
+          </div>
+        </article>
+
+        <article class="post-card">
+          <div class="post-media placeholder" aria-hidden="true"></div>
+          <div class="post-body">
+            <p class="eyebrow">Nutrition · 5 min read</p>
+            <h3>Balanced diet for growing bodies</h3>
+            <p class="muted">Learn essential nutritional strategies to support physical and mental development.</p>
+            <a class="link" href="blog/">Read more →</a>
+          </div>
+        </article>
+
+        <article class="post-card">
+          <div class="post-media placeholder" aria-hidden="true"></div>
+          <div class="post-body">
+            <p class="eyebrow">Stress · 6 min read</p>
+            <h3>Short, focused techniques to reset stress</h3>
+            <p class="muted">Breathing, movement, and attention shifts grounded in research.</p>
+            <a class="link" href="blog/">Read more →</a>
+          </div>
+        </article>
+
+        <article class="post-card">
+          <div class="post-media placeholder" aria-hidden="true"></div>
+          <div class="post-body">
+            <p class="eyebrow">Lifestyle · 4 min read</p>
+            <h3>Building healthy habits that stick</h3>
+            <p class="muted">Simple routines that compound into better energy and focus.</p>
+            <a class="link" href="blog/">Read more →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============== STATS + IMAGE ============== -->
+    <section class="container section two-col">
+      <div class="stats">
+        <h3 class="h3">Key benefits</h3>
+        <ul class="stat-list">
+          <li><strong>10+</strong> school workshops</li>
+          <li><strong>2k</strong> readers reached</li>
+          <li><strong>25</strong> printable resources</li>
+          <li><strong>8</strong> volunteer mentors</li>
+        </ul>
+      </div>
+      <div class="placeholder-lg" aria-hidden="true"><span>Feature image</span></div>
+    </section>
+
+    <!-- ============== TESTIMONIALS ============== -->
+    <section class="section testimonials">
+      <div class="container">
+        <h2 class="h2">Student voices</h2>
+        <div class="testimonial-grid">
+          <blockquote>
+            <p>“Short, clear tips I can use before exams.”</p>
+            <cite>— A., 11th grade</cite>
+          </blockquote>
+          <blockquote>
+            <p>“The sleep guide actually helped me fix my schedule.”</p>
+            <cite>— M., 10th grade</cite>
+          </blockquote>
+          <blockquote>
+            <p>“I shared the stress checklist with my team.”</p>
+            <cite>— R., Track captain</cite>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== CALL TO ACTIONS ============== -->
+    <section class="cta cta-dark">
+      <div class="container cta-inner">
+        <h2 class="h2">Join the health revolution</h2>
+        <p>Free, evidence-based resources for students and schools.</p>
+        <a class="btn" href="contact.html">Get started</a>
+      </div>
+    </section>
+
+    <section id="signup" class="cta cta-light">
+      <div class="container cta-inner">
+        <h2 class="h3">Stay informed</h2>
+        <form class="signup">
+          <label for="email" class="sr-only">Email</label>
+          <input id="email" type="email" placeholder="Email address" required />
+          <button class="btn" type="submit">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============== ROADMAP (TIMELINE) ============== -->
+    <section id="roadmap" class="container section">
+      <p class="kicker">Roadmap</p>
+      <h2 class="h2">Our roadmap to transforming teen health education</h2>
+
+      <ol class="timeline">
+        <li>
+          <h4>Q1 — Launch pilot</h4>
+          <p>Publish first 10 articles, run 2 school sessions.</p>
+        </li>
+        <li>
+          <h4>Q2 — Resources hub</h4>
+          <p>Release printable guides and classroom bundles.</p>
+        </li>
+        <li>
+          <h4>Q3 — Community mentors</h4>
+          <p>Train student leaders to host micro-workshops.</p>
+        </li>
+        <li>
+          <h4>Q4 — Impact report</h4>
+          <p>Share data on reach, sessions, and partnerships.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ============== FAQ (CSS-only via details/summary) ============== -->
+    <section id="faq" class="container section">
+      <h2 class="h2">FAQs</h2>
+      <div class="faq">
+        <details>
+          <summary>Is this medical advice?</summary>
+          <p>No. This site is for education only. For personal concerns, speak with a parent/guardian and a licensed medical professional.</p>
+        </details>
+        <details>
+          <summary>Where do you get your information?</summary>
+          <p>We summarize guidance from reputable sources (CDC, NIH, WHO, AAP, Mayo Clinic) and cite references in each article.</p>
+        </details>
+        <details>
+          <summary>Can schools use these resources?</summary>
+          <p>Yes. All content is free to share with attribution. Contact us to request custom bundles.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ============== GALLERY (visual insights) ============== -->
+    <section class="container section">
+      <h2 class="h2">Visual insights</h2>
+      <div class="gallery">
+        <div class="gallery-item placeholder"><span>Graphic</span></div>
+        <div class="gallery-item placeholder"><span>Graphic</span></div>
+        <div class="gallery-item placeholder"><span>Graphic</span></div>
+        <div class="gallery-item placeholder"><span>Graphic</span></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="index.html">TeenWell</a>
+        <p class="muted small">© 2024 Teen Wellness Project</p>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <a href="blog/">Articles</a>
+        <a href="resources.html" id="resources">Resources</a>
+        <a href="roadmap.html">Roadmap</a>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <a href="about.html">Mission</a>
+        <a href="#faq">FAQ</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Follow</h4>
+        <a href="#">Instagram</a>
+        <a href="#">YouTube</a>
+        <a href="#">GitHub</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
