@@ -120,3 +120,51 @@ function setupReveal() {
 
   els.forEach(el => io.observe(el));
 }
+<script>
+  (function () {
+    const navMore = document.querySelector('.nav-more');
+    if (!navMore) return;
+
+    const toggle = navMore.querySelector('.more-toggle');
+    const menu   = navMore.querySelector('.more-menu');
+
+    function closeMenu() {
+      navMore.classList.remove('open');
+      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    toggle?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = navMore.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (!navMore.contains(e.target)) closeMenu();
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeMenu();
+        toggle?.focus();
+      }
+    });
+
+    // Basic focus trap: Tab cycles through menu when open
+    menu?.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab') return;
+      const focusables = menu.querySelectorAll('a,button,[tabindex]:not([tabindex="-1"])');
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last  = focusables[focusables.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    });
+  })();
+</script>
