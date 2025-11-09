@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>How Teens Can Improve Sleep | TeenWell</title>
-  <link rel="stylesheet" href="../style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How Teens Can Improve Sleep Quality | TeenWell</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .guest [data-auth="in"]{display:none!important;}
+    .auth  [data-auth="out"]{display:none!important;}
+  </style>
 </head>
-
-<body>
+<body class="guest">
 
 <header class="site-header">
   <div class="container nav">
     <a class="logo" href="../index.html">TeenWell</a>
-
     <nav class="nav-links">
       <a href="../index.html">Home</a>
       <a class="active" href="./">Blog</a>
@@ -21,65 +23,47 @@
       <a href="../roadmap.html">Roadmap</a>
       <a href="../contact.html">Contact</a>
     </nav>
-
-<div class="nav-cta">
-  <!-- Visible when logged OUT -->
-  <a class="btn btn-ghost" href="sign-up.html" data-auth="out">Sign up</a>
-  <a class="btn" href="blog/index.html" data-auth="out">Learn</a>
-
-  <!-- Visible when logged IN -->
-  <a class="btn btn-ghost" href="dashboard.html" data-auth="in">My Dashboard</a>
-  <button id="logoutBtn" class="btn" data-auth="in">Log out</button>
-</div>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="../sign-up.html" data-auth="out">Sign up</a>
+      <a class="btn" href="./" data-auth="out">Learn</a>
+      <a class="btn btn-ghost" href="../dashboard.html" data-auth="in">My Dashboard</a>
+      <button id="logoutBtn" class="btn" data-auth="in">Log out</button>
     </div>
   </div>
 </header>
 
-<section class="section">
+<main class="section">
   <div class="container narrow">
-
-    <p class="eyebrow muted">Wellness · Sleep · 5 minute read</p>
+    <p class="kicker">Sleep · 5 min read</p>
     <h1 class="h1">How Teens Can Improve Sleep Quality</h1>
-    <p class="lead">
-      Teenage brains need 8–10 hours of sleep — but school, screens, and stress make that tough.  
-      Here’s a science-based guide to sleeping better without changing your whole life.
-    </p>
+    <p class="lead">Understand sleep cycles and use realistic habits to boost energy, focus, and mood.</p>
 
-    <hr>
+    <article class="prose">
+      <h2 class="h3">Why sleep matters</h2>
+      <p>Sleep supports memory, mood, immune function, and athletic performance. Teens typically need 8–10 hours per night.</p>
 
-    <h2 class="h2">Why sleep matters</h2>
-    <p>Sleep is one of the most powerful tools for memory, focus, mood, and long-term health.</p>
-    <ul>
-      <li>Better school performance</li>
-      <li>Improved mental health</li>
-      <li>Stronger immune system</li>
-      <li>More energy and motivation</li>
-    </ul>
+      <h2 class="h3">Tiny habits to try</h2>
+      <ul>
+        <li><strong>Consistent schedule:</strong> Wake within 60 minutes of the same time—weekends included.</li>
+        <li><strong>Light rules:</strong> Bright light in the morning, dim in the evening. Limit blue-light screens 60–90 minutes before bed.</li>
+        <li><strong>Wind-down:</strong> 10–15 mins of reading, stretches, or 4-7-8 breathing.</li>
+        <li><strong>Caffeine cutoff:</strong> Avoid after 2 pm.</li>
+        <li><strong>Room cool & dark:</strong> Ideal temp ~65–68°F (18–20°C).</li>
+      </ul>
 
-    <h2 class="h2">Quick habits that work</h2>
-    <ul>
-      <li>Consistent wake time — even weekends</li>
-      <li>Avoid screens 60 minutes before bed</li>
-      <li>No caffeine after lunchtime</li>
-      <li>Dark, cool, quiet bedroom</li>
-      <li>Daily sunlight exposure (morning is best)</li>
-    </ul>
+      <h2 class="h3">Connect to your Dashboard</h2>
+      <p>On your <a href="../dashboard.html">Dashboard</a>, log sleep hours nightly to earn XP and track trends.</p>
+    </article>
 
-    <h2 class="h2">Common sleep myths</h2>
-    <p>✅ “I can catch up on weekends” — partial truth, but irregular patterns still harm focus<br>
-    ❌ “I need 6 hours, I'm fine” — most teens are sleep deprived and don’t realize it</p>
-
-    <h2 class="h2">When to get help</h2>
-    <p>If you regularly can't sleep, feel exhausted at school, or have anxiety around sleep,  
-    talk to a doctor, school counselor, or trusted adult.</p>
-
-    <p class="muted small">Sources: CDC, NIH, AAP</p>
-
-    <br>
-    <a class="link" href="./">← Back to Blog</a>
-
+    <div class="cta cta-light" style="margin-top:1.25rem">
+      <div class="cta-inner">
+        <h3 class="h3">Build a bedtime streak</h3>
+        <p>Log sleep for 7 nights to unlock the 😴 badge.</p>
+        <a class="btn" href="../dashboard.html">Open Dashboard</a>
+      </div>
+    </div>
   </div>
-</section>
+</main>
 
 <footer class="site-footer">
   <div class="container footer-grid">
@@ -90,6 +74,16 @@
   </div>
 </footer>
 
-<script src="../script.js"></script>
+<script type="module">
+  import { auth, doSignOut } from '../auth.js';
+  import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+  const root = document.body;
+  onAuthStateChanged(auth, (user)=> {
+    root.classList.toggle('auth', !!user);
+    root.classList.toggle('guest', !user);
+  });
+  document.getElementById('logoutBtn')?.addEventListener('click', (e)=>{ e.preventDefault(); doSignOut(); });
+</script>
+
 </body>
 </html>

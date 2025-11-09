@@ -5,9 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Newsletter — TeenWell</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Auth-aware visibility (or move to style.css globally) */
+    .guest [data-auth="in"] { display: none !important; }
+    .auth  [data-auth="out"] { display: none !important; }
+    /* Optional: light layout tweaks for the form */
+    .newsletter-card { max-width: 720px; margin: 0 auto; }
+    .newsletter-card .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+    .newsletter-card .form-field { margin-bottom: .75rem; }
+    .newsletter-card label { display:block; font-weight:600; margin-bottom:.25rem; }
+    .newsletter-card input, .newsletter-card select {
+      width:100%; padding:.7rem; border:1px solid var(--border,#eadfd7);
+      border-radius:10px; background:#fff;
+    }
+    .checks { display:grid; gap:.5rem; margin:.5rem 0; }
+    .actions { display:flex; gap:.5rem; align-items:center; margin-top:.5rem; }
+  </style>
 </head>
 
-<body>
+<body class="guest">
   <!-- ================= NAV ================= -->
   <header class="site-header">
     <div class="container nav">
@@ -18,7 +34,7 @@
         <a href="blog/">Blog</a>
         <a href="resources.html">Resources</a>
         <div class="nav-more">
-          <button class="link more-toggle">More ▾</button>
+          <button class="link more-toggle" aria-expanded="false">More ▾</button>
           <div class="more-menu">
             <a href="about.html">Mission</a>
             <a href="roadmap.html">Roadmap</a>
@@ -27,28 +43,27 @@
         </div>
       </nav>
 
-<div class="nav-cta">
-  <!-- Visible when logged OUT -->
-  <a class="btn btn-ghost" href="sign-up.html" data-auth="out">Sign up</a>
-  <a class="btn" href="blog/index.html" data-auth="out">Learn</a>
+      <div class="nav-cta">
+        <!-- Visible when logged OUT -->
+        <a class="btn btn-ghost" href="sign-up.html" data-auth="out">Sign up</a>
+        <a class="btn" href="blog/" data-auth="out">Learn</a>
 
-  <!-- Visible when logged IN -->
-  <a class="btn btn-ghost" href="dashboard.html" data-auth="in">My Dashboard</a>
-  <button id="logoutBtn" class="btn" data-auth="in">Log out</button>
-</div>
-
+        <!-- Visible when logged IN -->
+        <a class="btn btn-ghost" href="dashboard.html" data-auth="in">My Dashboard</a>
+        <button id="logoutBtn" class="btn" data-auth="in">Log out</button>
       </div>
     </div>
   </header>
 
   <!-- ================= MAIN CONTENT ================= -->
-  <main class="section auth-wrap">
-    <div class="auth container">
-      <div class="card">
-        <h1>Subscribe to Our Newsletter</h1>
-        <p class="lead">Stay informed with our monthly health and wellness insights — straight to your inbox.</p>
+  <main class="section">
+    <div class="container narrow">
+      <p class="kicker">Stay informed</p>
+      <h1 class="h1">Subscribe to Our Newsletter</h1>
+      <p class="lead">Once or twice a month: sleep, stress, nutrition, and study tips you can actually use.</p>
 
-        <form action="#" method="post">
+      <div class="card newsletter-card">
+        <form id="newsletterForm">
           <div class="form-row">
             <div class="form-field">
               <label for="name">Full name</label>
@@ -81,7 +96,35 @@
             <button class="btn" type="submit">Subscribe</button>
             <a class="link" href="index.html">← Back to Home</a>
           </div>
+
+          <p id="nlStatus" class="muted small" style="margin-top:.5rem;"></p>
         </form>
+      </div>
+
+      <section class="section">
+        <h2 class="h2">Recent issues</h2>
+        <div class="card-grid">
+          <article class="card">
+            <h3 class="h3">#3 — Finals Survival Pack</h3>
+            <p>Focus timer tips, 4-7-8 breathing, and a quick sleep checklist.</p>
+          </article>
+          <article class="card">
+            <h3 class="h3">#2 — Snack Smarter</h3>
+            <p>Protein + colors + smart carbs: school-day nutrition you’ll keep.</p>
+          </article>
+          <article class="card">
+            <h3 class="h3">#1 — Welcome to TeenWell</h3>
+            <p>Why we started, what’s inside, and how to get involved.</p>
+          </article>
+        </div>
+      </section>
+
+      <div class="cta cta-light">
+        <div class="cta-inner">
+          <h3 class="h3">Earn XP for reading</h3>
+          <p>Open your Dashboard, add “Read Newsletter” as a habit, and stack tiny wins.</p>
+          <a class="btn" href="dashboard.html">Open Dashboard</a>
+        </div>
       </div>
     </div>
   </main>
@@ -91,7 +134,7 @@
     <div class="container footer-grid">
       <div class="footer-brand">
         <a class="logo" href="index.html">TeenWell</a>
-        <p class="muted small">© 2024 Teen Wellness Project</p>
+        <p class="muted small">© 2025 Teen Wellness Project</p>
       </div>
       <div class="footer-col">
         <h4>Learn</h4>
@@ -113,5 +156,36 @@
       </div>
     </div>
   </footer>
+
+  <!-- Auth-aware UI + simple subscribe handler -->
+  <script type="module">
+    // Toggle header buttons based on Firebase auth
+    import { auth, doSignOut } from './auth.js';
+    import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+
+    const root = document.body;
+    onAuthStateChanged(auth, (user) => {
+      const authed = !!user;
+      root.classList.toggle('auth', authed);
+      root.classList.toggle('guest', !authed);
+    });
+
+    document.getElementById('logoutBtn')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      doSignOut();
+    });
+
+    // Static-hosting-safe newsletter submit (shows a success message)
+    const form = document.getElementById('newsletterForm');
+    const status = document.getElementById('nlStatus');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = (document.getElementById('name').value || 'Friend').trim();
+      status.textContent = `Thanks, ${name}! You’re on the list.`;
+      // If you later add a backend or service (Mailchimp, Buttondown, Firebase),
+      // call it here with fetch() instead of this message.
+      form.reset();
+    });
+  </script>
 </body>
 </html>

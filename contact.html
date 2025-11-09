@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact | TeenWell</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — TeenWell</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .guest [data-auth="in"]{display:none!important;}
+    .auth  [data-auth="out"]{display:none!important;}
+    .contact-form{max-width:720px;margin:0 auto}
+    .contact-form .row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+    .contact-form label{display:block;font-weight:600;margin:.5rem 0 .25rem}
+    .contact-form input,.contact-form textarea{
+      width:100%;border:1px solid var(--border,#eadfd7);border-radius:10px;padding:.6rem;background:#fff
+    }
+  </style>
 </head>
-
-<body>
+<body class="guest">
 
 <header class="site-header">
   <div class="container nav">
     <a class="logo" href="index.html">TeenWell</a>
-
     <nav class="nav-links">
       <a href="index.html">Home</a>
       <a href="blog/">Blog</a>
@@ -21,55 +29,44 @@
       <a href="roadmap.html">Roadmap</a>
       <a class="active" href="contact.html">Contact</a>
     </nav>
-
-<div class="nav-cta">
-  <!-- Visible when logged OUT -->
-  <a class="btn btn-ghost" href="sign-up.html" data-auth="out">Sign up</a>
-  <a class="btn" href="blog/index.html" data-auth="out">Learn</a>
-
-  <!-- Visible when logged IN -->
-  <a class="btn btn-ghost" href="dashboard.html" data-auth="in">My Dashboard</a>
-  <button id="logoutBtn" class="btn" data-auth="in">Log out</button>
-</div>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="sign-up.html" data-auth="out">Sign up</a>
+      <a class="btn" href="blog/" data-auth="out">Learn</a>
+      <a class="btn btn-ghost" href="dashboard.html" data-auth="in">My Dashboard</a>
+      <button id="logoutBtn" class="btn" data-auth="in">Log out</button>
     </div>
   </div>
 </header>
 
-<section class="section hero centered">
+<main class="section">
   <div class="container narrow">
-    <p class="kicker">Get in touch</p>
-    <h1 class="h1">Have questions or topic requests?</h1>
-    <p class="lead">Reach out or suggest a topic you'd like explained in a student-friendly way.</p>
-  </div>
-</section>
+    <p class="kicker">Say hello</p>
+    <h1 class="h1">Contact TeenWell</h1>
+    <p class="lead">Questions, feedback, partnership ideas? We’d love to hear from you.</p>
 
-<section class="section">
-  <div class="container narrow">
-    <form class="form-card">
-
-      <label>Name</label>
-      <input type="text" placeholder="Your name">
-
-      <label>Email</label>
-      <input type="email" placeholder="your@email.com">
-
-      <label>Topic Request / Message</label>
-      <textarea rows="6" placeholder="What should I write about?"></textarea>
-
-      <!-- no real submit handling yet -->
-      <button type="button" class="btn full">Send Message</button>
-      <p class="muted small">*Form functionality coming soon — site is in development.</p>
-
+    <form class="card contact-form" onsubmit="location.href='mailto:hello@example.com'; return false;">
+      <div class="row">
+        <div>
+          <label for="name">Name</label>
+          <input id="name" type="text" placeholder="Your name" required />
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="you@example.com" required />
+        </div>
+      </div>
+      <label for="topic">Topic</label>
+      <input id="topic" type="text" placeholder="e.g., School workshop" />
+      <label for="msg">Message</label>
+      <textarea id="msg" rows="6" placeholder="How can we help?"></textarea>
+      <div style="margin-top:.75rem">
+        <button class="btn" type="submit">Send</button>
+        <a class="btn btn-ghost" href="mailto:hello@example.com">Open mail app</a>
+      </div>
+      <p class="muted small" style="margin-top:.5rem">No medical advice—education only.</p>
     </form>
   </div>
-</section>
-
-<section class="section cta centered">
-  <div class="container narrow">
-    <h2 class="h2">Want regular science-backed tips?</h2>
-    <a class="btn" href="newsletter.html">Join the newsletter</a>
-  </div>
-</section>
+</main>
 
 <footer class="site-footer">
   <div class="container footer-grid">
@@ -80,6 +77,16 @@
   </div>
 </footer>
 
-<script src="script.js"></script>
+<script type="module">
+  import { auth, doSignOut } from './auth.js';
+  import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+  const root = document.body;
+  onAuthStateChanged(auth, (user)=> {
+    root.classList.toggle('auth', !!user);
+    root.classList.toggle('guest', !user);
+  });
+  document.getElementById('logoutBtn')?.addEventListener('click', (e)=>{ e.preventDefault(); doSignOut(); });
+</script>
+
 </body>
 </html>
