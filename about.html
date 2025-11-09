@@ -9,8 +9,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-
+<body class="guest">
 <!-- ===== HEADER / NAV ===== -->
 <header class="site-header">
   <div class="container nav">
@@ -25,19 +24,17 @@
       <a href="contact.html">Contact</a>
     </nav>
 
-   <div class="nav-cta">
-  <!-- Visible when logged OUT -->
-  <a class="btn btn-ghost" href="sign-up.html" data-auth="out">Sign up</a>
-  <a class="btn" href="blog/index.html" data-auth="out">Learn</a>
+    <div class="nav-cta">
+      <!-- Visible when logged OUT -->
+      <a class="btn btn-ghost" href="sign-up.html" data-auth="out">Sign up</a>
+      <a class="btn" href="blog/" data-auth="out">Learn</a>
 
-  <!-- Visible when logged IN -->
-  <a class="btn btn-ghost" href="dashboard.html" data-auth="in">My Dashboard</a>
-  <button id="logoutBtn" class="btn" data-auth="in">Log out</button>
-</div>
+      <!-- Visible when logged IN -->
+      <a class="btn btn-ghost" href="dashboard.html" data-auth="in">My Dashboard</a>
+      <button id="logoutBtn" class="btn" data-auth="in">Log out</button>
     </div>
   </div>
 </header>
-
 
 <!-- ===== HERO ===== -->
 <section class="section hero centered">
@@ -45,12 +42,11 @@
     <p class="kicker">Our Story</p>
     <h1 class="h1">Empowering students with evidence-based wellness knowledge</h1>
     <p class="lead">
-      TeenWell is a student-led initiative bringing science-backed health insights to teens 
+      TeenWell is a student-led initiative bringing science-backed health insights to teens
       in a relatable, simple, and trustworthy way — because understanding your body shouldn't require a medical degree.
     </p>
   </div>
 </section>
-
 
 <!-- ===== FOUNDER SECTION ===== -->
 <section class="section">
@@ -61,7 +57,7 @@
         As a high school student passionate about healthcare and technology, as well as being co-president of a club that focuses on teaching concepts which regular classes may skip over, I decided to create this website focused on science-based wellness information in a format made for education.
       </p>
       <p>
-        TeenWell combines medical research, digital education, and student perspective to help young people 
+        TeenWell combines medical research, digital education, and student perspective to help young people
         build healthier habits and stronger futures. Focused in all perspectives: academically, mentally, and physically.
       </p>
       <p>
@@ -74,7 +70,6 @@
     </div>
   </div>
 </section>
-
 
 <!-- ===== VALUES / PILLARS ===== -->
 <section class="section light">
@@ -100,7 +95,6 @@
     </div>
   </div>
 </section>
-
 
 <!-- ===== STATS ===== -->
 <section class="section">
@@ -132,7 +126,6 @@
   </div>
 </section>
 
-
 <!-- ===== CTA ===== -->
 <section class="section cta centered">
   <div class="container narrow">
@@ -141,7 +134,6 @@
     <a class="btn" href="sign-up.html">Stay Updated</a>
   </div>
 </section>
-
 
 <!-- ===== FOOTER ===== -->
 <footer class="site-footer">
@@ -168,7 +160,9 @@
   </div>
 </footer>
 
+<!-- Auth header logic (show/hide buttons + logout) -->
+<script type="module" src="auth-ui.js"></script>
+<!-- Your page scripts -->
 <script src="script.js"></script>
-
 </body>
 </html>
