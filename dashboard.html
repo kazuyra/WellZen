@@ -7,29 +7,38 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="dashboard.css" />
   <style>
+    /* (keep or move to style.css once) */
     .guest [data-auth="in"]{display:none!important;}
     .auth  [data-auth="out"]{display:none!important;}
   </style>
 </head>
 <body class="guest">
+  <!-- ================= NAV ================= -->
   <header class="site-header">
     <div class="container nav">
       <a class="logo" href="index.html">TeenWell</a>
+
       <nav class="nav-links">
         <a href="index.html">Home</a>
+        <a href="blog/">Blog</a>
         <a href="resources.html">Resources</a>
         <a href="about.html">About</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="contact.html">Contact</a>
       </nav>
-      <div class="nav-cta">
-        <a class="btn btn-ghost" href="sign-up.html" data-auth="out">Sign up</a>
-        <a class="btn" href="blog/index.html" data-auth="out">Learn</a>
 
+      <div class="nav-cta">
+        <!-- Logged OUT -->
+        <a class="btn btn-ghost" href="sign-up.html" data-auth="out">Sign up</a>
+        <a class="btn" href="blog/" data-auth="out">Learn</a>
+        <!-- Logged IN -->
         <a class="btn btn-ghost" href="dashboard.html" data-auth="in">My Dashboard</a>
         <button id="logoutBtn" class="btn" data-auth="in">Log out</button>
       </div>
     </div>
   </header>
 
+  <!-- ================= MAIN ================= -->
   <main class="section">
     <div class="container">
       <!-- Header -->

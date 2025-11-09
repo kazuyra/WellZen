@@ -43,6 +43,8 @@
 
 
 html{
+  .guest [data-auth="in"] { display: none !important; }
+.auth  [data-auth="out"] { display: none !important; }
   scroll-behavior:smooth;
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 }
