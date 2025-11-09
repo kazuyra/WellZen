@@ -25,9 +25,15 @@
       <a href="contact.html">Contact</a>
     </nav>
 
-    <div class="nav-cta">
-      <a class="btn btn-ghost" href="sign-up.html">Sign Up</a>
-      <a class="btn" href="blog/index.html">Learn</a>
+   <div class="nav-cta">
+  <!-- Visible when logged OUT -->
+  <a class="btn btn-ghost" href="sign-up.html" data-auth="out">Sign up</a>
+  <a class="btn" href="blog/index.html" data-auth="out">Learn</a>
+
+  <!-- Visible when logged IN -->
+  <a class="btn btn-ghost" href="dashboard.html" data-auth="in">My Dashboard</a>
+  <button id="logoutBtn" class="btn" data-auth="in">Log out</button>
+</div>
     </div>
   </div>
 </header>
