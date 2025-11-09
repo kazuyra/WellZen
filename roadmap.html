@@ -5,9 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Project Roadmap | TeenWell</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .guest [data-auth="in"] { display: none !important; }
+    .auth  [data-auth="out"] { display: none !important; }
+  </style>
 </head>
-
-<body>
+<body class="guest">
 
 <header class="site-header">
   <div class="container nav">
@@ -22,15 +25,14 @@
       <a href="contact.html">Contact</a>
     </nav>
 
-<div class="nav-cta">
-  <!-- Visible when logged OUT -->
-  <a class="btn btn-ghost" href="sign-up.html" data-auth="out">Sign up</a>
-  <a class="btn" href="blog/index.html" data-auth="out">Learn</a>
+    <div class="nav-cta">
+      <!-- Visible when logged OUT -->
+      <a class="btn btn-ghost" href="sign-up.html" data-auth="out">Sign up</a>
+      <a class="btn" href="blog/index.html" data-auth="out">Learn</a>
 
-  <!-- Visible when logged IN -->
-  <a class="btn btn-ghost" href="dashboard.html" data-auth="in">My Dashboard</a>
-  <button id="logoutBtn" class="btn" data-auth="in">Log out</button>
-</div>
+      <!-- Visible when logged IN -->
+      <a class="btn btn-ghost" href="dashboard.html" data-auth="in">My Dashboard</a>
+      <button id="logoutBtn" class="btn" data-auth="in">Log out</button>
     </div>
   </div>
 </header>
@@ -98,7 +100,8 @@
   <div class="container narrow">
     <h2 class="h2">Follow the journey</h2>
     <p class="lead">See updates as the project grows and impacts more students.</p>
-    <a class="btn" href="sign-up.html">Stay Updated</a>
+    <a class="btn" href="sign-up.html" data-auth="out">Stay Updated</a>
+    <a class="btn" href="dashboard.html" data-auth="in">Open Dashboard</a>
   </div>
 </section>
 
@@ -112,6 +115,6 @@
 </footer>
 
 <script src="script.js"></script>
-
+<script type="module" src="auth-ui.js"></script>
 </body>
 </html>

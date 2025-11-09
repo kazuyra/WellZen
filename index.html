@@ -5,8 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Teen Wellness — Health Education for Students</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- Auth-aware helpers -->
+  <style>
+    .guest [data-auth="in"] { display: none !important; }
+    .auth  [data-auth="out"] { display: none !important; }
+  </style>
 </head>
-<body>
+<body class="guest">
   <!-- ================= NAV ================= -->
   <header class="site-header">
     <div class="container nav">
@@ -27,15 +32,14 @@
         </div>
       </nav>
 
-<div class="nav-cta">
-  <!-- Visible when logged OUT -->
-  <a class="btn btn-ghost" href="sign-up.html" data-auth="out">Sign up</a>
-  <a class="btn" href="blog/index.html" data-auth="out">Learn</a>
+      <div class="nav-cta">
+        <!-- Visible when logged OUT -->
+        <a class="btn btn-ghost" href="sign-up.html" data-auth="out">Sign up</a>
+        <a class="btn" href="blog/index.html" data-auth="out">Learn</a>
 
-  <!-- Visible when logged IN -->
-  <a class="btn btn-ghost" href="dashboard.html" data-auth="in">My Dashboard</a>
-  <button id="logoutBtn" class="btn" data-auth="in">Log out</button>
-</div>
+        <!-- Visible when logged IN -->
+        <a class="btn btn-ghost" href="dashboard.html" data-auth="in">My Dashboard</a>
+        <button id="logoutBtn" class="btn" data-auth="in">Log out</button>
       </div>
     </div>
   </header>
@@ -45,33 +49,39 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-card">
-          <h1>Empowering individuals to build healthier lives</h1>
+          <h1>
+            <span data-auth="out">Empowering individuals to build healthier lives</span>
+            <span data-auth="in">Welcome back, <span id="userName">Friend</span> 👋</span>
+          </h1>
           <p>Science-backed health insights designed for students. Learn practical strategies to improve your physical and mental well-being.</p>
           <div class="hero-actions">
-            <a class="btn" href="blog/">Explore</a>
-            <a class="btn btn-ghost" href="about.html">Learn more</a>
-            </div>
-          </div>
+            <a class="btn" href="blog/" data-auth="out">Explore</a>
+            <a class="btn btn-ghost" href="about.html" data-auth="out">Learn more</a>
 
-          <div class="hero-media">
-            <img src="images/image.png" alt="Teen wellness illustration" width="500" height="400">
+            <a class="btn" href="dashboard.html" data-auth="in">Open Dashboard</a>
+            <a class="btn btn-ghost" href="resources.html" data-auth="in">Resources</a>
           </div>
-          </div>
-        </section>
+        </div>
 
-        <!-- ============== MISSION STRIP ============== -->
-        <section id="mission" class="strip">
-          <div class="container strip-inner">
-          <p class="kicker">Mission</p>
-          <h2 class="h3">We believe in educating young people about their health through evidence-based information and practical guidance.</h2>
-          <div class="strip-actions">
-            <a class="btn btn-ghost" href="resources.html">Discover</a>
-            <a class="btn btn-ghost" href="about.html">Our story</a>
-          </div>
-          </div>
-        </section>
+        <div class="hero-media">
+          <img src="images/image.png" alt="Teen wellness illustration" width="500" height="400">
+        </div>
+      </div>
+    </section>
 
-        <!-- ============== APPROACH CARDS ============== -->
+    <!-- ============== MISSION STRIP ============== -->
+    <section id="mission" class="strip">
+      <div class="container strip-inner">
+        <p class="kicker">Mission</p>
+        <h2 class="h3">We believe in educating young people about their health through evidence-based information and practical guidance.</h2>
+        <div class="strip-actions">
+          <a class="btn btn-ghost" href="resources.html">Discover</a>
+          <a class="btn btn-ghost" href="about.html">Our story</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== APPROACH CARDS ============== -->
     <section id="approach" class="container section">
       <p class="kicker">Our approach</p>
       <h2 class="h2">Why youth health matters</h2>
@@ -127,7 +137,7 @@
         </article>
 
         <article class="post-card">
-                    <img src="images/food.png" alt="Food Habits" width="500" height="600">
+          <img src="images/food.png" alt="Food Habits" width="500" height="600">
           <div class="post-body">
             <p class="eyebrow">Nutrition · 8 min read</p>
             <h3>Balanced diet for growing bodies</h3>
@@ -137,8 +147,7 @@
         </article>
 
         <article class="post-card">
-         <img src="images/stress.png" alt="Reset Stress Habits" width="500" height="600">
-          <div class="post-body">
+          <img src="images/stress.png" alt="Reset Stress Habits" width="500" height="600">
           <div class="post-body">
             <p class="eyebrow">Stress · 8 min read</p>
             <h3>Short, focused techniques to reset stress</h3>
@@ -148,7 +157,7 @@
         </article>
 
         <article class="post-card">
-         <img src="images/lifestyle.png" alt="Life Habits" width="500" height="600">
+          <img src="images/lifestyle.png" alt="Life Habits" width="500" height="600">
           <div class="post-body">
             <p class="eyebrow">Lifestyle · 4 min read</p>
             <h3>Building healthy habits that stick</h3>
@@ -159,20 +168,7 @@
       </div>
     </section>
 
-    <!-- ============== STATS + IMAGE ============== 
-    <section class="container section two-col">
-      <div class="stats">
-        <h3 class="h3">Key benefits/Why Trust Us</h3>
-        <ul class="stat-list">
-          <li><strong>10+</strong> school workshops</li>
-          <li><strong>2k</strong> readers reached</li>
-          <li><strong>25</strong> printable resources</li>
-          <li><strong>8</strong> volunteer mentors</li>
-        </ul>
-      </div>
-      <div class="placeholder-lg" aria-hidden="true"><span>Feature image</span></div>
-    </section>
- ============== TESTIMONIALS ============== -->
+    <!-- ============== TESTIMONIALS ============== -->
     <section class="section testimonials">
       <div class="container">
         <h2 class="h2">Student voices</h2>
@@ -198,7 +194,8 @@
       <div class="container cta-inner">
         <h2 class="h2">Join the health revolution</h2>
         <p>Free, evidence-based resources for students and schools.</p>
-        <a class="btn" href="resources.html">Get started</a>
+        <a class="btn" href="resources.html" data-auth="out">Get started</a>
+        <a class="btn" href="dashboard.html" data-auth="in">Go to my Dashboard</a>
       </div>
     </section>
 
@@ -217,28 +214,15 @@
     <section id="roadmap" class="container section">
       <p class="kicker">Roadmap</p>
       <h2 class="h2">Our roadmap to transforming teen health education</h2>
-
       <ol class="timeline">
-        <li>
-          <h4>Q1 — Launch pilot</h4>
-          <p>Publish first 10 articles, run 2 school sessions.</p>
-        </li>
-        <li>
-          <h4>Q2 — Resources hub</h4>
-          <p>Release printable guides and classroom bundles.</p>
-        </li>
-        <li>
-          <h4>Q3 — Community mentors</h4>
-          <p>Train student leaders to host micro-workshops.</p>
-        </li>
-        <li>
-          <h4>Q4 — Impact report</h4>
-          <p>Share data on reach, sessions, and partnerships.</p>
-        </li>
+        <li><h4>Q1 — Launch pilot</h4><p>Publish first 10 articles, run 2 school sessions.</p></li>
+        <li><h4>Q2 — Resources hub</h4><p>Release printable guides and classroom bundles.</p></li>
+        <li><h4>Q3 — Community mentors</h4><p>Train student leaders to host micro-workshops.</p></li>
+        <li><h4>Q4 — Impact report</h4><p>Share data on reach, sessions, and partnerships.</p></li>
       </ol>
     </section>
 
-    <!-- ============== FAQ (CSS-only via details/summary) ============== -->
+    <!-- ============== FAQ ============== -->
     <section id="faq" class="container section">
       <h2 class="h2">FAQs</h2>
       <div class="faq">
@@ -256,20 +240,9 @@
         </details>
       </div>
     </section>
-
-    <!-- ============== GALLERY (visual insights) ============== 
-    <section class="container section">
-      <h2 class="h2">Visual insights</h2>
-      <div class="gallery">
-        <div class="gallery-item placeholder"><span>Graphic</span></div>
-        <div class="gallery-item placeholder"><span>Graphic</span></div>
-        <div class="gallery-item placeholder"><span>Graphic</span></div>
-        <div class="gallery-item placeholder"><span>Graphic</span></div>
-      </div>
-    </section>
   </main>
 
-================= FOOTER ================= -->
+  <!-- ================= FOOTER ================= -->
   <footer class="site-footer">
     <div class="container footer-grid">
       <div class="footer-brand">
@@ -288,7 +261,7 @@
         <a href="#faq">FAQ</a>
         <a href="contact.html">Contact</a>
       </div>
-    <div class="footer-col">
+      <div class="footer-col">
         <h4>Follow</h4>
         <a href="#">Instagram</a>
         <a href="#">YouTube</a>
@@ -296,5 +269,8 @@
       </div>
     </div>
   </footer>
+
+  <!-- Auth UI toggles -->
+  <script type="module" src="auth-ui.js"></script>
 </body>
 </html>

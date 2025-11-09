@@ -122,7 +122,7 @@ function setupReveal() {
 }
 <script>
   (function () {
-    const navMore = document.querySelector('.nav-more');
+  const navMore = document.querySelector('.nav-more');
     if (!navMore) return;
 
     const toggle = navMore.querySelector('.more-toggle');

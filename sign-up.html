@@ -6,8 +6,12 @@
   <title>Sign Up — TeenWell</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="signup.css" />
+  <style>
+    .guest [data-auth="in"] { display: none !important; }
+    .auth  [data-auth="out"] { display: none !important; }
+  </style>
 </head>
-<body>
+<body class="guest">
 
   <header class="site-header">
     <div class="container nav">
@@ -18,15 +22,16 @@
         <a href="about.html">About</a>
         <a href="login.html">Log in</a>
       </nav>
-<div class="nav-cta">
-  <!-- Visible when logged OUT -->
-  <a class="btn btn-ghost" href="sign-up.html" data-auth="out">Sign up</a>
-  <a class="btn" href="blog/index.html" data-auth="out">Learn</a>
 
-  <!-- Visible when logged IN -->
-  <a class="btn btn-ghost" href="dashboard.html" data-auth="in">My Dashboard</a>
-  <button id="logoutBtn" class="btn" data-auth="in">Log out</button>
-</div>
+      <div class="nav-cta">
+        <!-- Visible when logged OUT -->
+        <a class="btn btn-ghost" href="sign-up.html" data-auth="out">Sign up</a>
+        <a class="btn" href="blog/index.html" data-auth="out">Learn</a>
+
+        <!-- Visible when logged IN -->
+        <a class="btn btn-ghost" href="dashboard.html" data-auth="in">My Dashboard</a>
+        <button id="logoutBtn" class="btn" data-auth="in">Log out</button>
+      </div>
     </div>
   </header>
 
@@ -47,7 +52,6 @@
         <h2>Create your account</h2>
         <p class="signup-muted">Use email & password or continue with Google.</p>
 
-        <!-- Static-host-safe fallback -->
         <form id="signupForm" action="dashboard.html" method="get" novalidate>
           <div class="form-grid">
             <div class="form-field">
@@ -97,11 +101,6 @@
           <p class="subtle-note">
             Already have an account? <a href="login.html">Log in</a>.
           </p>
-
-          <noscript>
-            <div class="banner success"><span class="strong">Note:</span> JavaScript is off.
-              You’ll be taken straight to your Dashboard with default settings.</div>
-          </noscript>
         </form>
       </main>
 
@@ -120,17 +119,12 @@
   <!-- Firebase auth wiring -->
   <script type="module">
     import { signupWithEmail, signinWithGoogle } from './auth.js';
-
     const form = document.getElementById('signupForm');
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      signupWithEmail();
-    });
-
-    const googleBtn = document.getElementById('googleSignupBtn');
-    googleBtn.addEventListener('click', () => {
-      signinWithGoogle();
-    });
+    form.addEventListener('submit', (e) => { e.preventDefault(); signupWithEmail(); });
+    document.getElementById('googleSignupBtn').addEventListener('click', signinWithGoogle);
   </script>
+
+  <!-- Auth UI toggles -->
+  <script type="module" src="auth-ui.js"></script>
 </body>
 </html>
