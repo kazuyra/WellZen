@@ -1,0 +1,53 @@
+/* ===== Dashboard additions (keeps theme from style.css) ===== */
+.dash-header{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; margin-bottom:1rem;
+}
+.dash-points{ display:flex; align-items:center; gap:.75rem; }
+.points{ font-weight:800; padding:.4rem .75rem; border-radius:999px; background:var(--accent-soft); color:#0b3d26; }
+.level{ font-weight:800; color:#8a3a26; background:rgba(255,179,153,.18); padding:.4rem .75rem; border-radius:999px; }
+.btn-ghost{ cursor:pointer; }
+
+.dash-grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap: clamp(1rem, 2.5vw, 1.5rem); margin-block:1rem;
+}
+.card-head{ display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:.5rem; }
+.habit-list{ list-style:none; padding:0; display:flex; flex-direction:column; gap:.5rem; }
+
+.habit{
+  display:grid; grid-template-columns:auto 1fr auto; gap:.75rem; align-items:center;
+  border:1px solid var(--border); border-radius:14px; padding:.6rem .75rem; background:#fff;
+}
+.habit .meta{ display:flex; align-items:center; gap:.5rem; font-weight:700; }
+.habit .progress{ display:flex; align-items:center; gap:.4rem; }
+.badge{ font-size:.8rem; padding:.2rem .5rem; border-radius:999px; background:#fff4ef; color:#6b331f; border:1px solid var(--border); }
+.tick{ width:22px; height:22px; border-radius:6px; border:1px solid var(--border); display:inline-grid; place-items:center; cursor:pointer; }
+.tick.done{ background:linear-gradient(180deg, var(--accent), #27a86e); color:#082a1a; border-color:transparent; }
+
+.timer-display{ font-size:2.4rem; font-weight:800; margin:.25rem 0 .5rem; }
+.timer-controls,.timer-actions{ display:flex; gap:.5rem; flex-wrap:wrap; }
+
+.mood-row{ display:flex; gap:.4rem; flex-wrap:wrap; }
+.mood{ font-size:1.35rem; padding:.35rem .55rem; border:1px solid var(--border); border-radius:10px; background:#fff; cursor:pointer; }
+.log-list{ list-style:none; padding:0; display:flex; flex-direction:column; gap:.35rem; }
+.log-list li{ font-size:.95rem; color:#444; }
+
+.breath-visual{
+  --size: 120px;
+  width:var(--size); height:var(--size);
+  border-radius:50%;
+  margin: .25rem auto .5rem;
+  background: radial-gradient(circle at 50% 40%, #fff, #fff7f1);
+  border:1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.breathing{ animation: breathe 19s ease-in-out infinite; }
+@keyframes breathe{
+  0%{ transform: scale(1); }
+  21%{ transform: scale(1.15);}    /* inhale 4s */
+  58%{ transform: scale(1.15);}    /* hold 7s */
+  100%{ transform: scale(.9);}     /* exhale 8s */
+}
+
+textarea#journalText{ width:100%; padding:.6rem .75rem; border-radius:12px; border:1px solid var(--border); }
+.modal-card{ border:1px solid var(--border); border-radius:14px; padding:1rem; background:#fff; min-width:280px; }
+.modal-card menu{ display:flex; gap:.5rem; justify-content:flex-end; padding:0; margin-top:.75rem; }

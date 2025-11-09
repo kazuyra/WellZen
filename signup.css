@@ -1,0 +1,192 @@
+/* ===================== Sign Up (Page-Specific Styles) =====================
+   This file assumes your global theme variables already exist in style.css:
+   --bg, --bg-2, --surface, --card, --text, --text-muted, --border,
+   --accent, --accent-2, --accent-soft
+   ======================================================================== */
+
+:root{
+  /* Fallbacks in case the page is opened without the global sheet */
+  --bg:#fffaf7;
+  --bg-2:#fff7f1;
+  --surface:#fff5ee;
+  --card:#ffffff;
+  --text:#2b2b2b;
+  --text-muted:#6b6b6b;
+  --border:#eadfd7;
+  --accent:#2fb277;
+  --accent-2:#39c487;
+  --accent-soft:rgba(47,178,119,.12);
+  --radius:16px;
+  --shadow: 0 10px 30px rgba(0,0,0,.06);
+}
+
+/* Page wrapper */
+.signup-hero{
+  background: linear-gradient(180deg, var(--bg), var(--bg-2));
+  padding: clamp(1.25rem, 3.5vw, 3rem) 0;
+}
+
+.signup-wrap{
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: clamp(1rem, 3.5vw, 2.5rem);
+}
+@media (max-width: 920px){
+  .signup-wrap{ grid-template-columns: 1fr; }
+}
+
+/* Left intro panel */
+.signup-intro{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: clamp(1rem, 3vw, 1.5rem);
+  box-shadow: var(--shadow);
+}
+.signup-intro h1{
+  font-size: clamp(1.5rem, 3.4vw, 2rem);
+  line-height: 1.2;
+  margin-bottom: .35rem;
+}
+.signup-intro p.lead{
+  color: var(--text-muted);
+  margin-bottom: .75rem;
+}
+.signup-points{
+  display:flex; flex-wrap:wrap; gap:.5rem;
+}
+.signup-pill{
+  background: var(--accent-soft);
+  color: #0b3d26;
+  padding: .35rem .6rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: .9rem;
+  border: 1px solid rgba(0,0,0,.03);
+}
+
+/* Form card */
+.signup-card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: clamp(1rem, 3vw, 1.25rem);
+  box-shadow: var(--shadow);
+}
+.signup-card h2{
+  font-size: 1.2rem;
+  margin-bottom: .25rem;
+}
+.signup-muted{
+  color: var(--text-muted);
+  font-size: .95rem;
+  margin-bottom: .75rem;
+}
+
+/* Form layout */
+.form-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .85rem;
+  margin-bottom: .75rem;
+}
+@media (max-width: 620px){
+  .form-grid{ grid-template-columns: 1fr; }
+}
+.form-row{ display:flex; gap:.85rem; }
+.form-row > *{ flex:1; }
+
+.form-field{
+  display:flex; flex-direction:column; gap:.35rem;
+}
+.form-field label{
+  font-weight: 600;
+  font-size: .95rem;
+  color: #2a2a2a;
+}
+.form-field .help{
+  color: var(--text-muted);
+  font-size: .85rem;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="email"],
+select{
+  appearance:none;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: .65rem .75rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+select:focus{
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* Terms */
+.terms{
+  display:flex; align-items:flex-start; gap:.6rem;
+  margin: .4rem 0 .9rem;
+  color: var(--text);
+}
+.terms input[type="checkbox"]{
+  width: 18px; height: 18px; margin-top:.1rem;
+}
+
+/* Buttons */
+.btn{
+  appearance:none; border:none; cursor:pointer;
+  background: var(--accent);
+  color: #07341f;
+  font-weight: 800;
+  padding: .7rem 1rem;
+  border-radius: 12px;
+  transition: transform .06s ease, background-color .15s ease;
+  box-shadow: 0 4px 12px rgba(47,178,119,.18);
+}
+.btn:hover{ background: var(--accent-2); }
+.btn:active{ transform: translateY(1px); }
+
+.btn-ghost{
+  appearance:none; border:1px solid var(--border); cursor:pointer;
+  background: #fff;
+  color: var(--text);
+  font-weight: 700;
+  padding: .65rem .9rem;
+  border-radius: 12px;
+  transition: border-color .15s ease, background-color .15s ease;
+}
+.btn-ghost:hover{ background:#fffdfb; border-color:#e6d6cd; }
+
+/* Footer note */
+.subtle-note{
+  color: var(--text-muted);
+  font-size: .85rem;
+  margin-top: .65rem;
+}
+
+/* Error */
+.input-error{
+  border-color: #d76464 !important;
+  box-shadow: 0 0 0 3px rgba(215,100,100,.12) !important;
+}
+
+/* Small success banner after redirect back to sign-up (optional reuse) */
+.banner{
+  margin-bottom: .75rem;
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 12px;
+  padding: .65rem .75rem;
+}
+.banner.success{ border-color: #cfe9d9; background: #f6fffb; }
+.banner .strong{ font-weight: 700; }
