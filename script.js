@@ -1,170 +1,192 @@
-// ========= tiny helpers =========
-const $ = (s, el = document) => el.querySelector(s);
-const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+/* ===========================================================
+   TeenWell • Global UI utilities (non-auth)
+   - "More" menu toggle + outside/ESC close
+   - Active nav highlighting (fallback)
+   - Reveal-on-scroll
+   - Stats number counter animation
+   - FAQ (details/summary) accordion behavior
+   - Tag row active state
+   - Newsletter fake-submit + toast
+   - Footer year
+   =========================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
-  safe(setActiveNav);
-  safe(setupMoreMenu);
-  safe(setupSmoothScroll);
-  safe(setupSignupForm);
-  safe(setupCountUp);
-  safe(setupReveal);
-});
+(() => {
+  "use strict";
 
-// Run a function and swallow errors so nothing breaks CSS/layout
-function safe(fn) {
-  try { fn && fn(); } catch (e) { /* console.warn(e); */ }
-}
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-/* ========= 1) Active nav link (class only) ========= */
-function setActiveNav() {
-  const path = location.pathname.replace(/\/index\.html$/, '/');
-  $$('.nav-links a').forEach(a => {
-    const href = a.getAttribute('href');
-    const isHome = href === 'index.html' && (path.endsWith('/') || path.endsWith('/index.html'));
-    const isBlog = href === 'blog/' && path.includes('/blog/');
-    const isExact = href !== 'index.html' && href !== 'blog/' && path.endsWith('/' + href);
-    a.classList.toggle('active', isHome || isBlog || isExact);
-  });
-}
+  /* -------------------- 1) NAV: More menu -------------------- */
+  const moreToggle = $(".more-toggle");
+  const moreMenu = $(".more-menu");
 
-/* ========= 2) “More ▾” menu (class toggle only) ========= */
-function setupMoreMenu() {
-  const wrapper = $('.nav-more');
-  const btn = $('.more-toggle');
-  const menu = $('.more-menu');
-  if (!wrapper || !btn || !menu) return;
+  if (moreToggle && moreMenu) {
+    const closeMenu = () => {
+      moreToggle.setAttribute("aria-expanded", "false");
+      moreMenu.classList.remove("open");
+    };
 
-  function open()  { wrapper.classList.add('open');  btn.setAttribute('aria-expanded', 'true'); }
-  function close() { wrapper.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
-  function toggle() { wrapper.classList.contains('open') ? close() : open(); }
+    const openMenu = () => {
+      moreToggle.setAttribute("aria-expanded", "true");
+      moreMenu.classList.add("open");
+    };
 
-  btn.addEventListener('click', e => { e.stopPropagation(); toggle(); });
-  document.addEventListener('click', e => { if (!wrapper.contains(e.target)) close(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
-}
-
-/* ========= 3) Smooth scroll for same-page anchors ========= */
-function setupSmoothScroll() {
-  $$('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', e => {
-      const id = link.getAttribute('href').slice(1);
-      if (!id) return;
-      const target = document.getElementById(id);
-      if (!target) return;
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      history.pushState(null, '', `#${id}`);
-    });
-  });
-}
-
-/* ========= 4) Newsletter form (non-destructive) ========= */
-function setupSignupForm() {
-  const form = $('.signup');
-  if (!form) return;
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const email = $('#email', form)?.value?.trim();
-    const valid = !!email && /\S+@\S+\.\S+/.test(email);
-    const msg = document.createElement('p');
-    msg.className = 'muted small signup-msg';
-    msg.textContent = valid ? 'Thanks! You’re on the list. (Demo only)' : 'Please enter a valid email.';
-    $('.signup-msg')?.remove();
-    form.parentElement.appendChild(msg);
-    form.reset();
-  });
-}
-
-/* ========= 5) Count-up numbers (no inline style changes) ========= */
-/* Use: <div class="stat-number" data-target="2000">0</div> */
-function setupCountUp() {
-  const nums = $$('.stat-number[data-target]');
-  if (!nums.length) return;
-
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target;
-      const target = Number(el.dataset.target || '0');
-      const duration = 1200;
-      let start = null;
-      function step(ts) {
-        if (!start) start = ts;
-        const p = Math.min((ts - start) / duration, 1);
-        el.textContent = Math.floor(target * p).toLocaleString();
-        if (p < 1) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-      io.unobserve(el);
-    });
-  }, { threshold: 0.35 });
-
-  nums.forEach(n => io.observe(n));
-}
-
-/* ========= 6) Reveal on scroll (class toggle only) ========= */
-/* Add class="reveal" in HTML; CSS handles the animation */
-function setupReveal() {
-  const els = $$('.reveal');
-  if (!els.length) return;
-
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.2 });
-
-  els.forEach(el => io.observe(el));
-}
-<script>
-  (function () {
-  const navMore = document.querySelector('.nav-more');
-    if (!navMore) return;
-
-    const toggle = navMore.querySelector('.more-toggle');
-    const menu   = navMore.querySelector('.more-menu');
-
-    function closeMenu() {
-      navMore.classList.remove('open');
-      if (toggle) toggle.setAttribute('aria-expanded', 'false');
-    }
-
-    toggle?.addEventListener('click', (e) => {
+    moreToggle.addEventListener("click", (e) => {
       e.stopPropagation();
-      const isOpen = navMore.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', String(isOpen));
+      const expanded = moreToggle.getAttribute("aria-expanded") === "true";
+      expanded ? closeMenu() : openMenu();
     });
 
-    // Close on outside click
-    document.addEventListener('click', (e) => {
-      if (!navMore.contains(e.target)) closeMenu();
+    // Click outside closes
+    document.addEventListener("click", (e) => {
+      if (!moreMenu.contains(e.target) && e.target !== moreToggle) closeMenu();
     });
 
-    // Close on Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeMenu();
-        toggle?.focus();
-      }
+    // ESC closes
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMenu();
     });
+  }
 
-    // Basic focus trap: Tab cycles through menu when open
-    menu?.addEventListener('keydown', (e) => {
-      if (e.key !== 'Tab') return;
-      const focusables = menu.querySelectorAll('a,button,[tabindex]:not([tabindex="-1"])');
-      if (!focusables.length) return;
-      const first = focusables[0];
-      const last  = focusables[focusables.length - 1];
+  /* ------------- 2) Fallback active link highlighting -------- */
+  // If author didn't mark current link with .active, do it by path
+  const path = location.pathname.replace(/index\.html$/, "");
+  $$(".nav-links a").forEach((a) => {
+    const href = a.getAttribute("href");
+    // Normalize relative "/blog/" vs "blog/"
+    const normalized = (href || "").replace(/index\.html$/, "");
+    if (normalized && path.endsWith(normalized)) {
+      a.classList.add("active");
+    }
+  });
 
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault(); last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault(); first.focus();
-      }
+  /* --------------------- 3) Reveal-on-scroll ------------------ */
+  const revealTargets = $$(".reveal, .card, .post-card, .timeline li, .timeline .timeline-item");
+  if (revealTargets.length) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((ent) => {
+          if (ent.isIntersecting) {
+            ent.target.classList.add("in");
+            io.unobserve(ent.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    revealTargets.forEach((el) => io.observe(el));
+  }
+
+  /* ---------------- 4) Stats number counter (About) ----------- */
+  const counters = $$(".stat-number[data-target]");
+  if (counters.length) {
+    const runCounter = (el) => {
+      const target = parseInt(el.dataset.target || "0", 10);
+      const dur = 1400; // ms
+      const start = performance.now();
+      const step = (t) => {
+        const p = Math.min(1, (t - start) / dur);
+        el.textContent = Math.round(target * (0.2 + 0.8 * easeOutCubic(p)));
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    const easeOutCubic = (x) => 1 - Math.pow(1 - x, 3);
+
+    const io2 = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((ent) => {
+          if (ent.isIntersecting) {
+            runCounter(ent.target);
+            io2.unobserve(ent.target);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    counters.forEach((el) => io2.observe(el));
+  }
+
+  /* --------------------- 5) FAQ accordion --------------------- */
+  // If one <details> opens, close the others
+  const faq = $(".faq");
+  if (faq) {
+    faq.addEventListener("toggle", (e) => {
+      const opened = e.target;
+      if (opened.tagName.toLowerCase() !== "details" || !opened.open) return;
+      $$(".faq details").forEach((d) => {
+        if (d !== opened) d.removeAttribute("open");
+      });
     });
-  })();
-</script>
+  }
+
+  /* -------------------- 6) Tag row active --------------------- */
+  $$(".tag-row .tag").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const row = btn.closest(".tag-row");
+      if (!row) return;
+      $$(".tag", row).forEach((b) => b.classList.remove("is-active"));
+      btn.classList.add("is-active");
+    });
+  });
+
+  /* --------- 7) Newsletter fake submit + local save ----------- */
+  const newsletterForm = $("form.signup") || $('main form[action="#"][method="post"]');
+  if (newsletterForm) {
+    newsletterForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = $("#name", newsletterForm)?.value?.trim() || "";
+      const email = $("#email", newsletterForm)?.value?.trim() || "";
+
+      if (!email) return toast("Please enter an email.", "warn");
+
+      // Store locally so we can prefill later pages
+      try {
+        const subs = JSON.parse(localStorage.getItem("tw_newsletter") || "[]");
+        const exists = subs.some((s) => s.email === email);
+        if (!exists) subs.push({ name, email, ts: Date.now() });
+        localStorage.setItem("tw_newsletter", JSON.stringify(subs));
+      } catch (_) {}
+
+      // UI: clear + thank you
+      newsletterForm.reset();
+      toast("Subscribed! Check your inbox for a welcome note.");
+    });
+  }
+
+  /* -------------------- 8) Footer year helper ----------------- */
+  const yearSpots = $$("footer .year");
+  if (yearSpots.length) {
+    const y = new Date().getFullYear();
+    yearSpots.forEach((el) => (el.textContent = y));
+  }
+
+  /* ---------------------- 9) Tiny toast ------------------------ */
+  function toast(msg, type = "ok") {
+    let box = $("#tw_toast");
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "tw_toast";
+      box.style.position = "fixed";
+      box.style.left = "50%";
+      box.style.bottom = "28px";
+      box.style.transform = "translateX(-50%)";
+      box.style.padding = "10px 14px";
+      box.style.borderRadius = "999px";
+      box.style.background = "var(--accent, #2fb277)";
+      box.style.color = "white";
+      box.style.boxShadow = "0 8px 24px rgba(0,0,0,.2)";
+      box.style.fontWeight = "600";
+      box.style.zIndex = "9999";
+      document.body.appendChild(box);
+    }
+    box.style.background =
+      type === "warn" ? "rgba(230,120,40,.95)" : "var(--accent, #2fb277)";
+    box.textContent = msg;
+    box.style.opacity = "1";
+    clearTimeout(box._hide);
+    box._hide = setTimeout(() => {
+      box.style.opacity = "0";
+    }, 2200);
+  }
+})();
