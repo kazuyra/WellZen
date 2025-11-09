@@ -1,74 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sign Up — TeenWell</title>
-  <link rel="stylesheet" href="signup.css" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="signup.css" />
 </head>
-
 <body>
-  <!-- ================= NAV ================= -->
+
   <header class="site-header">
     <div class="container nav">
       <a class="logo" href="index.html">TeenWell</a>
-
       <nav class="nav-links">
         <a href="index.html">Home</a>
-        <a href="blog/">Blog</a>
         <a href="resources.html">Resources</a>
-        <div class="nav-more">
-          <button class="link more-toggle">More ▾</button>
-          <div class="more-menu">
-            <a href="about.html">Mission</a>
-            <a href="roadmap.html">Roadmap</a>
-            <a href="index.html#faq">FAQ</a>
-          </div>
-        </div>
+        <a href="about.html">About</a>
+        <a href="login.html">Log in</a>
       </nav>
-
       <div class="nav-cta">
-        <a class="btn btn-ghost" href="contact.html">Contact</a>
-        <a class="btn" href="sign-up.html">Sign up</a>
+        <a class="btn-ghost" href="dashboard.html">Dashboard</a>
       </div>
     </div>
   </header>
 
-  <!-- ================= MAIN CONTENT ================= -->
-  <main class="section auth-wrap">
-    <div class="auth container">
-      <div class="card">
-        <h1>Create your account</h1>
-        <p class="lead">Join our student wellness community for evidence-based tips, guides, and workshops.</p>
+  <section class="signup-hero">
+    <div class="signup-wrap">
 
-        <form action="#" method="post">
-          <div class="form-row">
+      <aside class="signup-intro">
+        <h1>Start tiny wins today</h1>
+        <p class="lead">Personalized habits, focus timer, breathing, mood and sleep logs.</p>
+        <div class="signup-points">
+          <span class="signup-pill">Healthy habits</span>
+          <span class="signup-pill">Daily streaks</span>
+          <span class="signup-pill">Points & levels</span>
+        </div>
+      </aside>
+
+      <main class="signup-card">
+        <h2>Create your account</h2>
+        <p class="signup-muted">Use email & password or continue with Google.</p>
+
+        <!-- Static-host-safe fallback -->
+        <form id="signupForm" action="dashboard.html" method="get" novalidate>
+          <div class="form-grid">
             <div class="form-field">
               <label for="name">Full name</label>
-              <input id="name" name="name" type="text" placeholder="Alex Kim" required />
+              <input id="name" name="name" type="text" placeholder="Alex Rivera" />
             </div>
+
             <div class="form-field">
               <label for="email">Email</label>
               <input id="email" name="email" type="email" placeholder="you@example.com" required />
             </div>
-          </div>
 
-          <div class="form-row">
             <div class="form-field">
               <label for="password">Password</label>
-              <input id="password" name="password" type="password" placeholder="At least 8 characters" required />
+              <input id="password" name="password" type="password" placeholder="Create a password" required />
+              <div class="help">8+ characters recommended</div>
             </div>
-            <div class="form-field">
-              <label for="confirm">Confirm password</label>
-              <input id="confirm" name="confirm" type="password" placeholder="Re-enter password" required />
-            </div>
-          </div>
 
-          <div class="form-row">
+            <div class="form-field">
+              <label for="school">School / Team <span class="help">(optional)</span></label>
+              <input id="school" name="school" type="text" placeholder="Mission HS" />
+            </div>
+
             <div class="form-field">
               <label for="interest">Primary interest</label>
-              <select id="interest" name="interest" required>
+              <select id="interest" name="interest">
                 <option value="">Choose one…</option>
                 <option>Sleep & Recovery</option>
                 <option>Stress & Mental Health</option>
@@ -77,57 +76,55 @@
                 <option>Fitness for Students</option>
               </select>
             </div>
-            <div class="form-field">
-              <label for="school">School / Team (optional)</label>
-              <input id="school" name="school" type="text" placeholder="e.g., Westview HS Track & Field" />
-            </div>
           </div>
 
-          <div class="form-field">
-            <label for="goals">Your goals (optional)</label>
-            <textarea id="goals" name="goals" rows="3" placeholder="Tell us what you want to improve this semester…"></textarea>
+          <label class="terms">
+            <input type="checkbox" name="terms" required />
+            I agree to the Terms and Privacy Policy.
+          </label>
+
+          <div class="form-row">
+            <button class="btn" type="submit" id="emailSignupBtn">Create account</button>
+            <button class="btn-ghost" type="button" id="googleSignupBtn">Continue with Google</button>
           </div>
 
-          <div class="checks">
-            <label><input type="checkbox" name="newsletter" checked /> Sign me up for the monthly newsletter</label>
-            <label><input type="checkbox" name="terms" required /> I agree to the <a href="#">Terms of Use</a> and confirm I’m 13+.</label>
-          </div>
+          <p class="subtle-note">
+            Already have an account? <a href="login.html">Log in</a>.
+          </p>
 
-          <div class="actions">
-            <button class="btn" type="submit">Create account</button>
-            <a class="link" href="index.html">← Back to Home</a>
-          </div>
+          <noscript>
+            <div class="banner success"><span class="strong">Note:</span> JavaScript is off.
+              You’ll be taken straight to your Dashboard with default settings.</div>
+          </noscript>
         </form>
-      </div>
-    </div>
-  </main>
+      </main>
 
-  <!-- ================= FOOTER ================= -->
+    </div>
+  </section>
+
   <footer class="site-footer">
     <div class="container footer-grid">
       <div class="footer-brand">
         <a class="logo" href="index.html">TeenWell</a>
         <p class="muted small">© 2025 Teen Wellness Project</p>
       </div>
-      <div class="footer-col">
-        <h4>Learn</h4>
-        <a href="blog/">Articles</a>
-        <a href="resources.html">Resources</a>
-        <a href="roadmap.html">Roadmap</a>
-      </div>
-      <div class="footer-col">
-        <h4>About</h4>
-        <a href="about.html">Mission</a>
-        <a href="index.html#faq">FAQ</a>
-        <a href="contact.html">Contact</a>
-      </div>
-      <div class="footer-col">
-        <h4>Follow</h4>
-        <a href="#">Instagram</a>
-        <a href="#">YouTube</a>
-        <a href="#">GitHub</a>
-      </div>
     </div>
   </footer>
+
+  <!-- Firebase auth wiring -->
+  <script type="module">
+    import { signupWithEmail, signinWithGoogle } from './auth.js';
+
+    const form = document.getElementById('signupForm');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      signupWithEmail();
+    });
+
+    const googleBtn = document.getElementById('googleSignupBtn');
+    googleBtn.addEventListener('click', () => {
+      signinWithGoogle();
+    });
+  </script>
 </body>
 </html>
