@@ -6,8 +6,12 @@
   <title>Dashboard — TeenWell</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="dashboard.css" />
+  <style>
+    .guest [data-auth="in"]{display:none!important;}
+    .auth  [data-auth="out"]{display:none!important;}
+  </style>
 </head>
-<body>
+<body class="guest">
   <header class="site-header">
     <div class="container nav">
       <a class="logo" href="index.html">TeenWell</a>
@@ -16,32 +20,165 @@
         <a href="resources.html">Resources</a>
         <a href="about.html">About</a>
       </nav>
-<div class="nav-cta">
-  <!-- Visible when logged OUT -->
-  <a class="btn btn-ghost" href="sign-up.html" data-auth="out">Sign up</a>
-  <a class="btn" href="blog/index.html" data-auth="out">Learn</a>
+      <div class="nav-cta">
+        <a class="btn btn-ghost" href="sign-up.html" data-auth="out">Sign up</a>
+        <a class="btn" href="blog/index.html" data-auth="out">Learn</a>
 
-  <!-- Visible when logged IN -->
-  <a class="btn btn-ghost" href="dashboard.html" data-auth="in">My Dashboard</a>
-  <button id="logoutBtn" class="btn" data-auth="in">Log out</button>
-</div>
+        <a class="btn btn-ghost" href="dashboard.html" data-auth="in">My Dashboard</a>
+        <button id="logoutBtn" class="btn" data-auth="in">Log out</button>
       </div>
     </div>
   </header>
 
   <main class="section">
     <div class="container">
-      <section class="dash-header reveal">
+      <!-- Header -->
+      <section class="dash-header">
         <div>
           <h1 class="h1">Welcome back, <span id="userName">Friend</span> 👋</h1>
-          <p class="lead">Build tiny daily wins. Track habits, focus sessions, sleep, mood, and more.</p>
+          <p class="lead">Tiny daily wins → streaks → XP → badges. Let’s build momentum.</p>
+        </div>
+        <div class="xp-card">
+          <div>
+            <div class="xp">XP: <span id="xpTotal">0</span></div>
+            <div class="streak">🔥 Streak: <span id="globalStreak">0</span> days</div>
+          </div>
+          <div class="level">Lvl <span id="levelNum">1</span></div>
         </div>
       </section>
 
-      <div class="card">
-        <h2>Your habit data and activities will appear here.</h2>
-        <p class="muted">You’re signed in securely using Firebase Authentication.</p>
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab is-active" data-tab="todayTab">Today</button>
+        <button class="tab" data-tab="habitsTab">Habits</button>
+        <button class="tab" data-tab="focusTab">Focus</button>
+        <button class="tab" data-tab="moodTab">Mood</button>
+        <button class="tab" data-tab="sleepTab">Sleep</button>
+        <button class="tab" data-tab="rewardsTab">Badges</button>
       </div>
+
+      <!-- TODAY -->
+      <section id="todayTab" class="tab-panel is-active">
+        <div class="grid-3">
+          <article class="card">
+            <h3 class="h3">Today’s Habits</h3>
+            <ul id="todayHabits" class="checklist"></ul>
+            <div class="inline">
+              <button class="btn" id="quickAddHabit">+ Add habit</button>
+              <span class="muted small" id="todayCompleteNote"></span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3 class="h3">Quick Focus</h3>
+            <div class="timer">
+              <div class="time" id="focusTime">25:00</div>
+              <div class="timer-controls">
+                <button class="btn" data-action="startFocus">Start</button>
+                <button class="btn btn-ghost" data-action="pauseFocus">Pause</button>
+                <button class="btn btn-ghost" data-action="resetFocus">Reset</button>
+              </div>
+              <div class="timer-pills">
+                <button class="pill" data-min="15">15m</button>
+                <button class="pill is-active" data-min="25">25m</button>
+                <button class="pill" data-min="45">45m</button>
+              </div>
+              <p class="muted small">Completing a session gives +10 XP.</p>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3 class="h3">Breathing reset</h3>
+            <div class="breath">
+              <div class="circle" id="breathCircle"></div>
+              <div class="steps" id="breathStep">Inhale</div>
+              <div class="breath-controls">
+                <button class="btn" id="breathStart">Start</button>
+                <button class="btn btn-ghost" id="breathStop">Stop</button>
+              </div>
+            </div>
+            <p class="muted small">4-7-8: Inhale 4 • Hold 7 • Exhale 8</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- HABITS -->
+      <section id="habitsTab" class="tab-panel">
+        <article class="card">
+          <div class="row-between">
+            <h3 class="h3">Your Habits</h3>
+            <button class="btn" id="addHabitBtn">+ New habit</button>
+          </div>
+          <ul id="habitList" class="habit-list"></ul>
+        </article>
+
+        <article class="card">
+          <h3 class="h3">Weekly Overview</h3>
+          <div id="weekBars" class="week-bars"></div>
+          <p class="muted small">Each bar = % habits completed each day</p>
+        </article>
+      </section>
+
+      <!-- FOCUS -->
+      <section id="focusTab" class="tab-panel">
+        <article class="card">
+          <h3 class="h3">Focus Log</h3>
+          <ul id="focusLog" class="list"></ul>
+        </article>
+      </section>
+
+      <!-- MOOD -->
+      <section id="moodTab" class="tab-panel">
+        <article class="card">
+          <h3 class="h3">How are you feeling?</h3>
+          <div class="mood-row">
+            <button class="mood" data-mood="😄">😄</button>
+            <button class="mood" data-mood="🙂">🙂</button>
+            <button class="mood" data-mood="😐">😐</button>
+            <button class="mood" data-mood="😕">😕</button>
+            <button class="mood" data-mood="😢">😢</button>
+          </div>
+          <textarea id="moodNote" class="note" rows="3" placeholder="Want to add a note?"></textarea>
+          <button class="btn" id="saveMood">Save mood</button>
+        </article>
+
+        <article class="card">
+          <h3 class="h3">Mood History</h3>
+          <ul id="moodLog" class="list"></ul>
+        </article>
+      </section>
+
+      <!-- SLEEP -->
+      <section id="sleepTab" class="tab-panel">
+        <article class="card">
+          <h3 class="h3">Log last night’s sleep</h3>
+          <div class="sleep-form">
+            <label>Hours slept
+              <input id="sleepHours" type="number" min="0" max="14" step="0.5" placeholder="7.5" />
+            </label>
+            <label>Bedtime
+              <input id="sleepBed" type="time" />
+            </label>
+            <label>Wake time
+              <input id="sleepWake" type="time" />
+            </label>
+          </div>
+          <button class="btn" id="saveSleep">Save sleep</button>
+        </article>
+
+        <article class="card">
+          <h3 class="h3">Sleep History</h3>
+          <ul id="sleepLog" class="list"></ul>
+        </article>
+      </section>
+
+      <!-- BADGES -->
+      <section id="rewardsTab" class="tab-panel">
+        <article class="card">
+          <h3 class="h3">Badges</h3>
+          <div id="badgeGrid" class="badge-grid"></div>
+        </article>
+      </section>
     </div>
   </main>
 
@@ -54,13 +191,8 @@
     </div>
   </footer>
 
-  <script type="module">
-    import { requireAuthOnDashboard, doSignOut } from './auth.js';
-    requireAuthOnDashboard();
-    document.getElementById('logoutBtn').addEventListener('click', (e) => {
-      e.preventDefault();
-      doSignOut();
-    });
-  </script>
+  <!-- Auth + Dashboard logic -->
+  <script type="module" src="auth-ui.js"></script>
+  <script type="module" src="dashboard.js"></script>
 </body>
 </html>
