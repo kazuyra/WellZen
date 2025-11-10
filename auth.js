@@ -5,9 +5,9 @@
 // ---- Firebase web app config (yours) ----
 const firebaseConfig = {
   apiKey: "AIzaSyCuYSXZsfNh5RKaz-9zkPt-mEtaGkUCKlc",
-  authDomain: "HabitTide-acbe4.firebaseapp.com",
-  projectId: "HabitTide-acbe4",
-  storageBucket: "HabitTide-acbe4.firebasestorage.app",
+  authDomain: "teenwell-acbe4.firebaseapp.com",
+  projectId: "teenwell-acbe4",
+  storageBucket: "teenwell-acbe4.firebasestorage.app",
   messagingSenderId: "977644389409",
   appId: "1:977644389409:web:679ceae6be098148a5cf60",
   measurementId: "G-RTES2SB52V"
