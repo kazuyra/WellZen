@@ -82,21 +82,3 @@
   text-align:center; opacity:.5;
 }
 .badge.earned{opacity:1; box-shadow:0 6px 18px rgba(0,0,0,.06)}
-
-/* ========== Category filter + badges (added) ========== */
-.cat-wrap{ margin:.25rem 0 1rem; }
-.cat-filters{ display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:.25rem; }
-.cat-btn{
-  border:1px solid var(--border,#eadfd7); background:#fff; border-radius:999px;
-  padding:.35rem .8rem; cursor:pointer; font-weight:600;
-}
-.cat-btn.is-active{ background:var(--accent-soft,rgba(47,178,119,.12)); }
-
-.badge-cat{
-  display:inline-block; font-size:.72rem; font-weight:700; padding:.15rem .5rem;
-  border-radius:999px; border:1px solid var(--border,#eadfd7); margin-left:.35rem;
-  text-transform:capitalize; background:#f8f9fb;
-}
-.badge-cat.mind{ background:#eef4ff; border-color:#d7e3ff; }
-.badge-cat.body{ background:#eafff0; border-color:#c9f1d8; }
-.badge-cat.soul{ background:#fff0f4; border-color:#ffd6e3; }
