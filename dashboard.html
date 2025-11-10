@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="dashboard.css" />
   <style>
-    /* (keep or move to style.css once) */
     .guest [data-auth="in"]{display:none!important;}
     .auth  [data-auth="out"]{display:none!important;}
   </style>
@@ -56,13 +55,13 @@
         </div>
       </section>
 
-      <!-- Tabs -->
+      <!-- Tabs (categorized) -->
       <div class="tabs">
         <button class="tab is-active" data-tab="todayTab">Today</button>
-        <button class="tab" data-tab="habitsTab">Habits</button>
-        <button class="tab" data-tab="focusTab">Focus</button>
-        <button class="tab" data-tab="moodTab">Mood</button>
-        <button class="tab" data-tab="sleepTab">Sleep</button>
+        <button class="tab cat-body" data-tab="habitsTab">Habits</button>
+        <button class="tab cat-mind" data-tab="focusTab">Focus</button>
+        <button class="tab cat-soul" data-tab="moodTab">Mood</button>
+        <button class="tab cat-body" data-tab="sleepTab">Sleep</button>
         <button class="tab" data-tab="rewardsTab">Badges</button>
       </div>
 
