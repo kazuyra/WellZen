@@ -5,10 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Teen Wellness — Health Education for Students</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- Auth-aware helpers -->
+  <!-- Page polish just for this file -->
   <style>
     .guest [data-auth="in"] { display: none !important; }
     .auth  [data-auth="out"] { display: none !important; }
+
+    /* Home: article pills + spacing */
+    #articles .tag-row {
+      margin-top: 14px;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+    /* Ensure the active pill stands out */
+    .tag.is-active {
+      background: var(--accent, #2fb277);
+      color: #fff;
+    }
+    /* Keep featured cards visually tight */
+    #articles .post-card img {
+      border-radius: 14px;
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    #articles .post-card .post-body { padding-top: 10px; }
+    @media (max-width: 720px){
+      #articles .tag-row { justify-content: center; }
+    }
   </style>
 </head>
 <body class="guest">
@@ -111,62 +135,87 @@
       </div>
     </section>
 
-    <!-- ============== ARTICLES (TAGS + GRID) ============== -->
+    <!-- ============== ARTICLES (MIND / BODY / SOUL) ============== -->
     <section id="articles" class="container section">
       <p class="kicker">Articles</p>
       <h2 class="h2">Latest insights for teen wellness</h2>
-      <p class="muted">Discover expert-curated content to support your health journey.</p>
+      <p class="muted">Browse by focus: Mind, Body, or Soul.</p>
 
+      <!-- Pills link to blog with a `?cat=` query -->
       <div class="tag-row" role="list">
-        <button class="tag is-active" role="listitem" onclick="location.href='blog/'">View all</button>
-        <button class="tag" role="listitem" onclick="location.href='blog/'">Wellness</button>
-        <button class="tag" role="listitem" onclick="location.href='blog/'">Nutrition</button>
-        <button class="tag" role="listitem" onclick="location.href='blog/'">Mental health</button>
-        <button class="tag" role="listitem" onclick="location.href='blog/'">Lifestyle</button>
+        <a class="tag is-active" role="listitem" href="blog/?cat=all">View all</a>
+        <a class="tag" role="listitem" href="blog/?cat=mind">Mind</a>
+        <a class="tag" role="listitem" href="blog/?cat=body">Body</a>
+        <a class="tag" role="listitem" href="blog/?cat=soul">Soul</a>
       </div>
 
-      <div id="blog" class="post-grid">
-        <article class="post-card">
-          <img src="images/sleep.png" alt="Sleep Habits" width="500" height="400">
-          <div class="post-body">
-            <p class="eyebrow">Wellness · 5 min read</p>
-            <h3>Understanding sleep cycles for teens</h3>
-            <p class="muted">Explore the science behind healthy sleep patterns and their impact on academic performance.</p>
-            <a class="link" href="blog/sleep-better.html">Read more →</a>
-          </div>
-        </article>
+      <!-- Featured cards (labels switched to Mind/Body/Soul) -->
+     <!-- ============== ARTICLES (MIND / BODY / SOUL) ============== -->
+<section id="articles" class="container section">
+  <p class="kicker">Articles</p>
+  <h2 class="h2">Latest insights for teen wellness</h2>
+  <p class="muted">Browse by focus: Mind, Body, or Soul.</p>
 
-        <article class="post-card">
-          <img src="images/food.png" alt="Food Habits" width="500" height="600">
-          <div class="post-body">
-            <p class="eyebrow">Nutrition · 8 min read</p>
-            <h3>Balanced diet for growing bodies</h3>
-            <p class="muted">Learn essential nutritional strategies to support physical and mental development.</p>
-            <a class="link" href="blog/eat-better.html">Read more →</a>
-          </div>
-        </article>
+  <!-- Filter pills (no navigation) -->
+  <div class="tag-row" role="list" id="articleFilters">
+    <button class="tag is-active" role="listitem" data-cat="all">View all</button>
+    <button class="tag" role="listitem" data-cat="mind">Mind</button>
+    <button class="tag" role="listitem" data-cat="body">Body</button>
+    <button class="tag" role="listitem" data-cat="soul">Soul</button>
+  </div>
 
-        <article class="post-card">
-          <img src="images/stress.png" alt="Reset Stress Habits" width="500" height="600">
-          <div class="post-body">
-            <p class="eyebrow">Stress · 8 min read</p>
-            <h3>Short, focused techniques to reset stress</h3>
-            <p class="muted">Breathing, movement, and attention shifts grounded in research.</p>
-            <a class="link" href="blog/stress-reset.html">Read more →</a>
-          </div>
-        </article>
+  <!-- Optional: quick search -->
+  <div class="search-row">
+    <input id="articleSearch" type="search" placeholder="Search articles… (e.g., sleep, stress, food)">
+  </div>
 
-        <article class="post-card">
-          <img src="images/lifestyle.png" alt="Life Habits" width="500" height="600">
-          <div class="post-body">
-            <p class="eyebrow">Lifestyle · 4 min read</p>
-            <h3>Building healthy habits that stick</h3>
-            <p class="muted">Simple routines that compound into better energy and focus.</p>
-            <a class="link" href="blog/">Read more →</a>
-          </div>
-        </article>
+  <!-- Cards live here; each has data-cat for filtering -->
+  <div id="articleGrid" class="post-grid">
+    <!-- BODY -->
+    <article class="post-card" data-cat="body">
+      <img src="images/sleep.png" alt="Sleep Habits" width="500" height="400">
+      <div class="post-body">
+        <p class="eyebrow">Body · 5 min read</p>
+        <h3>Understanding sleep cycles for teens</h3>
+        <p class="muted">Explore the science behind healthy sleep patterns and their impact on academic performance.</p>
+        <a class="link" href="blog/sleep-better.html">Read more →</a>
       </div>
-    </section>
+    </article>
+
+    <article class="post-card" data-cat="body">
+      <img src="images/food.png" alt="Food Habits" width="500" height="600">
+      <div class="post-body">
+        <p class="eyebrow">Body · 8 min read</p>
+        <h3>Balanced diet for growing bodies</h3>
+        <p class="muted">Learn essential nutritional strategies to support physical and mental development.</p>
+        <a class="link" href="blog/eat-better.html">Read more →</a>
+      </div>
+    </article>
+
+    <!-- MIND -->
+    <article class="post-card" data-cat="mind">
+      <img src="images/stress.png" alt="Reset Stress Habits" width="500" height="600">
+      <div class="post-body">
+        <p class="eyebrow">Mind · 8 min read</p>
+        <h3>Short, focused techniques to reset stress</h3>
+        <p class="muted">Breathing, movement, and attention shifts grounded in research.</p>
+        <a class="link" href="blog/stress-reset.html">Read more →</a>
+      </div>
+    </article>
+
+    <!-- SOUL -->
+    <article class="post-card" data-cat="soul">
+      <img src="images/lifestyle.png" alt="Life Habits" width="500" height="600">
+      <div class="post-body">
+        <p class="eyebrow">Soul · 4 min read</p>
+        <h3>Building healthy habits that stick</h3>
+        <p class="muted">Simple routines that compound into better energy and focus.</p>
+        <a class="link" href="blog/">Read more →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
 
     <!-- ============== TESTIMONIALS ============== -->
     <section class="section testimonials">
@@ -271,6 +320,7 @@
   </footer>
 
   <!-- Auth UI toggles -->
-  <script type="module" src="auth-ui.js"></script>
+<script src="script.js"></script>
+<script type="module" src="auth-ui.js"></script>
 </body>
 </html>

@@ -1,10 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog | TeenWell</title>
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* spacing + layout helpers just for this page */
+    .hero .tag-row { margin-top: 14px; gap: 10px; }
+    .filters { margin-top: 20px; display: flex; gap: 12px; align-items: center; justify-content: center; }
+    .search-input {
+      max-width: 520px; width: 100%;
+      padding: 10px 12px; border: 1px solid var(--border, #e8e2dc);
+      border-radius: 10px; background: var(--card, #fff);
+      font-size: 16px;
+    }
+    .results-note { text-align: center; margin-top: 14px; color: var(--text-muted, #6b6b6b); font-size: 14px; }
+    .hidden { display: none !important; }
+  </style>
 </head>
 
 <body>
@@ -33,38 +46,58 @@
   </div>
 </header>
 
-<!-- put this before </body> -->
-<script type="module" src="../auth-ui.js"></script>
-
-
 <section class="section hero centered">
   <div class="container narrow">
     <p class="kicker">Articles</p>
     <h1 class="h1">Wellness Guides for Students</h1>
-    <p class="lead">Science-backed tips on sleep, stress, nutrition, and mental health — made for teens.</p>
+    <p class="lead">Browse by focus area or search by keywords.</p>
+
+    <!-- Mind / Body / Soul pills (use ?cat=) -->
+    <div class="tag-row" role="list">
+      <a class="tag is-active" role="listitem" href="?cat=all">View all</a>
+      <a class="tag" role="listitem" href="?cat=mind">Mind</a>
+      <a class="tag" role="listitem" href="?cat=body">Body</a>
+      <a class="tag" role="listitem" href="?cat=soul">Soul</a>
+    </div>
+
+    <!-- Search -->
+    <div class="filters">
+      <input id="searchInput" class="search-input" type="search" placeholder="Search articles (e.g., sleep, stress, snacks)..." aria-label="Search articles">
+    </div>
+    <div id="resultsNote" class="results-note hidden">0 results</div>
   </div>
 </section>
 
 <section class="section">
-  <div class="container three-col cards">
+  <div id="cardsWrap" class="container three-col cards">
 
-    <div class="card">
+    <!-- BODY -->
+    <article class="card" data-cat="body" data-title="How Teens Can Improve Sleep Quality" data-summary="Understand sleep cycles and habits to boost energy focus mood">
       <h3 class="h3"><a class="link" href="sleep-better.html">How Teens Can Improve Sleep Quality</a></h3>
       <p>Understand sleep cycles and build realistic habits that boost energy, focus, and mood.</p>
-      <p class="muted small">5 minute read</p>
-    </div>
+      <p class="muted small">Body · 5 minute read</p>
+    </article>
 
-    <div class="card">
-     <h3 class="h3"><a class="link" href="eat-better.html">How to Start Eating Better?</a></h3>
+    <!-- BODY -->
+    <article class="card" data-cat="body" data-title="How to Start Eating Better?" data-summary="Nutrition basics smart snacks for school days healthy meals">
+      <h3 class="h3"><a class="link" href="eat-better.html">How to Start Eating Better?</a></h3>
       <p>Nutrition basics: smart snacks for school days.</p>
-      <p class="muted small">8 minute read</p>
-    </div>
+      <p class="muted small">Body · 8 minute read</p>
+    </article>
 
-    <div class="card">
-    <h3 class="h3"><a class="link" href="stress-reset.html">Tips on Resetting Stress</a></h3>
+    <!-- MIND -->
+    <article class="card" data-cat="mind" data-title="Tips on Resetting Stress" data-summary="stress management strategies psychology breathing focus">
+      <h3 class="h3"><a class="link" href="stress-reset.html">Tips on Resetting Stress</a></h3>
       <p>Stress management strategies backed by psychology research.</p>
-      <p class="muted small">8 minute read</p>
-    </div>
+      <p class="muted small">Mind · 8 minute read</p>
+    </article>
+
+    <!-- SOUL (placeholder / future piece) -->
+    <article class="card" data-cat="soul" data-title="Habits That Stick Purpose & Values" data-summary="meaningful habits motivation purpose values consistency">
+      <h3 class="h3"><a class="link" href="./">Habits That Stick (Purpose & Values)</a></h3>
+      <p>Simple routines that align with what matters to you, helping motivation last longer.</p>
+      <p class="muted small">Soul · 4 minute read</p>
+    </article>
 
   </div>
 </section>
@@ -77,6 +110,61 @@
     </div>
   </div>
 </footer>
+
+<!-- Auth UI toggles -->
+<script type="module" src="../auth-ui.js"></script>
+
+<!-- Category + Search logic -->
+<script>
+(function () {
+  const params = new URLSearchParams(location.search);
+  const cat = (params.get('cat') || 'all').toLowerCase();
+  const pills = document.querySelectorAll('.tag-row .tag');
+  const cards = Array.from(document.querySelectorAll('#cardsWrap [data-cat]'));
+  const searchEl = document.getElementById('searchInput');
+  const noteEl = document.getElementById('resultsNote');
+
+  // highlight active pill
+  pills.forEach(p => {
+    const pillCat = (new URL(p.href, location.href).searchParams.get('cat') || 'all').toLowerCase();
+    p.classList.toggle('is-active', pillCat === cat);
+  });
+
+  // core filter function (category + search)
+  const applyFilters = () => {
+    const q = (searchEl.value || '').trim().toLowerCase();
+    let visible = 0;
+
+    cards.forEach(card => {
+      const matchesCat = (cat === 'all') || (card.dataset.cat === cat);
+      const hay = `${card.dataset.title} ${card.dataset.summary}`.toLowerCase();
+      const matchesSearch = !q || hay.includes(q);
+
+      const show = matchesCat && matchesSearch;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+
+    // results note
+    if (q) {
+      noteEl.textContent = `${visible} result${visible === 1 ? '' : 's'}`;
+      noteEl.classList.remove('hidden');
+    } else {
+      noteEl.classList.add('hidden');
+    }
+  };
+
+  // debounce input
+  let t = null;
+  searchEl.addEventListener('input', () => {
+    clearTimeout(t);
+    t = setTimeout(applyFilters, 120);
+  });
+
+  // initial render
+  applyFilters();
+})();
+</script>
 
 <script src="../script.js"></script>
 </body>

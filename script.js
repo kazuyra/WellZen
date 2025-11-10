@@ -189,4 +189,38 @@
       box.style.opacity = "0";
     }, 2200);
   }
+  // === Mind / Body / Soul article filter + search (Homepage) ===
+document.addEventListener('DOMContentLoaded', () => {
+  const pills = document.querySelectorAll('#articleFilters .tag');
+  const cards = document.querySelectorAll('#articleGrid .post-card');
+  const search = document.getElementById('articleSearch');
+
+  if (!pills.length || !cards.length) return; // only run on homepage
+
+  function applyFilters() {
+    const active = document.querySelector('#articleFilters .tag.is-active')?.dataset.cat || 'all';
+    const q = (search?.value || '').trim().toLowerCase();
+
+    cards.forEach(card => {
+      const cat = card.dataset.cat;
+      const text = card.innerText.toLowerCase();
+      const matchesCat = active === 'all' || cat === active;
+      const matchesQ = !q || text.includes(q);
+      card.style.display = (matchesCat && matchesQ) ? '' : 'none';
+    });
+  }
+
+  pills.forEach(btn => {
+    btn.addEventListener('click', () => {
+      pills.forEach(p => p.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      applyFilters();
+    });
+  });
+
+  if (search) search.addEventListener('input', applyFilters);
+
+  applyFilters();
+});
+
 })();

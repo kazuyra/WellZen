@@ -32,6 +32,37 @@
   --space-7: 3rem;
 }
 
+/* Home: article pills + spacing + search */
+#articles .tag-row {
+  margin-top: 14px;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+#articles .tag.is-active {
+  background: var(--accent, #2fb277);
+  color: #fff;
+}
+#articles .search-row {
+  margin: 12px 0 8px;
+}
+#articles #articleSearch {
+  width: 100%;
+  max-width: 520px;
+  padding: 10px 12px;
+  border: 1px solid var(--border, #e5e5e5);
+  border-radius: 10px;
+  background: #fff;
+}
+#articles .post-card img {
+  border-radius: 14px;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+#articles .post-card .post-body { padding-top: 10px; }
+
+
 /* ===================== RESET / BASE ===================== */
 *,
 *::before,
@@ -235,6 +266,99 @@ details[open]{ border-color:#f0d8ce; }
   background:linear-gradient(180deg, #fff, #fff6f2);
   border:1px dashed var(--border); color:#b86b54;
   display:flex; align-items:center; justify-content:center; height:140px; border-radius:16px; padding: var(--space-4);
+}
+
+/* ===== Fixed grid sizing for article cards (keeps same size on filter) ===== */
+#articleSection { /* optional wrapper if you have one */
+  --gap: 24px;
+}
+
+/* Force a fixed column count by breakpoint so cards don't stretch when fewer are shown */
+#articleGrid {
+  display: grid;
+  gap: var(--gap);
+  align-items: stretch;
+}
+
+/* Desktop: 4 columns */
+@media (min-width: 1100px) {
+  #articleGrid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Tablet: 3 columns */
+@media (min-width: 820px) and (max-width: 1099px) {
+  #articleGrid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Large phones: 2 columns */
+@media (min-width: 560px) and (max-width: 819px) {
+  #articleGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Small phones: 1 column */
+@media (max-width: 559px) {
+  #articleGrid { grid-template-columns: 1fr; }
+}
+
+/* Make each card fill its grid cell height consistently */
+.post-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid var(--border, rgba(0,0,0,.08));
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--card, #fff);
+}
+
+/* Consistent media area so heights match */
+.post-card > img,
+.post-card .img-wrap {
+  width: 100%;
+  aspect-ratio: 4 / 3;      /* consistent crop */
+  object-fit: cover;        /* keep image tidy */
+  display: block;
+}
+
+/* Body grows to fill remaining height */
+.post-card .post-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px 16px;
+  flex: 1 1 auto;
+}
+
+/* Keep eyebrow and title from reflowing wildly */
+.post-card .eyebrow { opacity: .75; font-size: .9rem; }
+.post-card h3 { line-height: 1.2; margin: 2px 0 6px; }
+
+/* Optional: center a lone card so it doesn't hug the far left */
+#articleGrid:has(.post-card[style*="display: none"]) {
+  justify-items: stretch;      /* default */
+}
+@media (min-width: 1100px) {
+  /* This centers sparse rows nicely on wide screens */
+  #articleGrid { justify-content: center; }
+  #articleGrid > * { max-width: 360px; width: 100%; }
+}
+
+/* Spacing between the "Blog" heading row and the Mind/Body/Soul pills */
+#articleFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 14px 0 18px; /* tighten top/bottom so spacing matches "View all" */
+}
+
+#articleFilters .tag {
+  cursor: pointer;
+  user-select: none;
+}
+
+#articleFilters .tag.is-active {
+  outline: 2px solid var(--accent, #4fc3f7);
+  outline-offset: 2px;
 }
 
 /* ===================== FOOTER ===================== */
