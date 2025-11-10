@@ -1,5 +1,5 @@
 /* ===========================================================
-   TeenWell • Global UI utilities (non-auth)
+   HabitTide • Global UI utilities (non-auth)
    - "More" menu toggle + outside/ESC close
    - Active nav highlighting (fallback)
    - Reveal-on-scroll

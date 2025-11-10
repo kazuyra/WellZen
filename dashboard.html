@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard — TeenWell</title>
+  <title>Dashboard — HabitTide</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="dashboard.css" />
   <style>
-    /* (keep or move to style.css once) */
+    /* keep or move to style.css once */
     .guest [data-auth="in"]{display:none!important;}
     .auth  [data-auth="out"]{display:none!important;}
   </style>
@@ -16,7 +16,7 @@
   <!-- ================= NAV ================= -->
   <header class="site-header">
     <div class="container nav">
-      <a class="logo" href="index.html">TeenWell</a>
+      <a class="logo" href="index.html">HabitTide</a>
 
       <nav class="nav-links">
         <a href="index.html">Home</a>
@@ -56,6 +56,17 @@
         </div>
       </section>
 
+      <!-- Category Filters -->
+      <section class="cat-wrap">
+        <div id="catFilters" class="tag-row">
+          <button class="tag is-active" data-cat="all">All</button>
+          <button class="tag" data-cat="mind">Mind</button>
+          <button class="tag" data-cat="body">Body</button>
+          <button class="tag" data-cat="soul">Soul</button>
+        </div>
+        <p class="muted small">Filter everything on this page (habits, focus, mood, sleep) by category.</p>
+      </section>
+
       <!-- Tabs -->
       <div class="tabs">
         <button class="tab is-active" data-tab="todayTab">Today</button>
@@ -76,6 +87,18 @@
               <button class="btn" id="quickAddHabit">+ Add habit</button>
               <span class="muted small" id="todayCompleteNote"></span>
             </div>
+
+            <!-- inline quick-add -->
+            <form id="quickHabitForm" class="inline-form" hidden>
+              <input id="qhTitle" type="text" placeholder="Habit title (e.g., Read 10 mins)" />
+              <select id="qhCat">
+                <option value="mind">Mind</option>
+                <option value="body" selected>Body</option>
+                <option value="soul">Soul</option>
+              </select>
+              <button class="btn" type="submit">Save</button>
+              <button class="btn-ghost" type="button" id="qhCancel">Cancel</button>
+            </form>
           </article>
 
           <article class="card">
@@ -92,6 +115,15 @@
                 <button class="pill is-active" data-min="25">25m</button>
                 <button class="pill" data-min="45">45m</button>
               </div>
+              <div class="cat-small">
+                <label>Category
+                  <select id="focusCat">
+                    <option value="mind" selected>Mind</option>
+                    <option value="body">Body</option>
+                    <option value="soul">Soul</option>
+                  </select>
+                </label>
+              </div>
               <p class="muted small">Completing a session gives +10 XP.</p>
             </div>
           </article>
@@ -106,6 +138,15 @@
                 <button class="btn btn-ghost" id="breathStop">Stop</button>
               </div>
             </div>
+            <div class="cat-small">
+              <label>Category
+                <select id="breathCat">
+                  <option value="mind" selected>Mind</option>
+                  <option value="body">Body</option>
+                  <option value="soul">Soul</option>
+                </select>
+              </label>
+            </div>
             <p class="muted small">4-7-8: Inhale 4 • Hold 7 • Exhale 8</p>
           </article>
         </div>
@@ -118,6 +159,19 @@
             <h3 class="h3">Your Habits</h3>
             <button class="btn" id="addHabitBtn">+ New habit</button>
           </div>
+
+          <!-- Add Habit Form -->
+          <form id="addHabitForm" class="row-wrap" hidden>
+            <input id="habitTitle" type="text" placeholder="Habit title" />
+            <select id="habitCat">
+              <option value="mind">Mind</option>
+              <option value="body" selected>Body</option>
+              <option value="soul">Soul</option>
+            </select>
+            <button class="btn" type="submit">Add</button>
+            <button class="btn-ghost" type="button" id="addHabitCancel">Cancel</button>
+          </form>
+
           <ul id="habitList" class="habit-list"></ul>
         </article>
 
@@ -148,6 +202,17 @@
             <button class="mood" data-mood="😢">😢</button>
           </div>
           <textarea id="moodNote" class="note" rows="3" placeholder="Want to add a note?"></textarea>
+
+          <div class="cat-small">
+            <label>Category
+              <select id="moodCat">
+                <option value="mind" selected>Mind</option>
+                <option value="body">Body</option>
+                <option value="soul">Soul</option>
+              </select>
+            </label>
+          </div>
+
           <button class="btn" id="saveMood">Save mood</button>
         </article>
 
@@ -172,6 +237,17 @@
               <input id="sleepWake" type="time" />
             </label>
           </div>
+
+          <div class="cat-small">
+            <label>Category
+              <select id="sleepCat">
+                <option value="body" selected>Body</option>
+                <option value="mind">Mind</option>
+                <option value="soul">Soul</option>
+              </select>
+            </label>
+          </div>
+
           <button class="btn" id="saveSleep">Save sleep</button>
         </article>
 
@@ -194,7 +270,7 @@
   <footer class="site-footer">
     <div class="container footer-grid">
       <div class="footer-brand">
-        <a class="logo" href="index.html">TeenWell</a>
+        <a class="logo" href="index.html">HabitTide</a>
         <p class="muted small">© 2025 Teen Wellness Project</p>
       </div>
     </div>

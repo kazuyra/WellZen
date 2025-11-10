@@ -1,13 +1,13 @@
-// ================= TeenWell Auth (Firebase v9+ Modular via CDN) =================
+// ================= HabitTide Auth (Firebase v9+ Modular via CDN) =================
 // Works on static hosts (GitHub Pages). Provides: sign-up, sign-in, Google sign-in,
 // sign-out, and a dashboard guard. NO bundler needed.
 
 // ---- Firebase web app config (yours) ----
 const firebaseConfig = {
   apiKey: "AIzaSyCuYSXZsfNh5RKaz-9zkPt-mEtaGkUCKlc",
-  authDomain: "teenwell-acbe4.firebaseapp.com",
-  projectId: "teenwell-acbe4",
-  storageBucket: "teenwell-acbe4.firebasestorage.app",
+  authDomain: "HabitTide-acbe4.firebaseapp.com",
+  projectId: "HabitTide-acbe4",
+  storageBucket: "HabitTide-acbe4.firebasestorage.app",
   messagingSenderId: "977644389409",
   appId: "1:977644389409:web:679ceae6be098148a5cf60",
   measurementId: "G-RTES2SB52V"
