@@ -55,7 +55,15 @@
         </div>
       </section>
 
-      <!-- Tabs (categorized) -->
+      <!-- Category filter -->
+      <div class="cat-filter">
+        <button class="tag is-active" data-cat="all">All</button>
+        <button class="tag" data-cat="mind">Mind</button>
+        <button class="tag" data-cat="body">Body</button>
+        <button class="tag" data-cat="soul">Soul</button>
+      </div>
+
+      <!-- Tabs -->
       <div class="tabs">
         <button class="tab is-active" data-tab="todayTab">Today</button>
         <button class="tab cat-body" data-tab="habitsTab">Habits</button>
@@ -68,8 +76,8 @@
       <!-- TODAY -->
       <section id="todayTab" class="tab-panel is-active">
         <div class="grid-3">
-          <article class="card">
-            <h3 class="h3">Today’s Habits</h3>
+          <article class="card" data-cat-panel="body">
+            <h3 class="h3">Today’s Habits <span class="muted small">(Body)</span></h3>
             <ul id="todayHabits" class="checklist"></ul>
             <div class="inline">
               <button class="btn" id="quickAddHabit">+ Add habit</button>
@@ -77,8 +85,8 @@
             </div>
           </article>
 
-          <article class="card">
-            <h3 class="h3">Quick Focus</h3>
+          <article class="card" data-cat-panel="mind">
+            <h3 class="h3">Quick Focus <span class="muted small">(Mind)</span></h3>
             <div class="timer">
               <div class="time" id="focusTime">25:00</div>
               <div class="timer-controls">
@@ -95,8 +103,8 @@
             </div>
           </article>
 
-          <article class="card">
-            <h3 class="h3">Breathing reset</h3>
+          <article class="card" data-cat-panel="soul">
+            <h3 class="h3">Breathing reset <span class="muted small">(Soul)</span></h3>
             <div class="breath">
               <div class="circle" id="breathCircle"></div>
               <div class="steps" id="breathStep">Inhale</div>
@@ -117,13 +125,22 @@
             <h3 class="h3">Your Habits</h3>
             <button class="btn" id="addHabitBtn">+ New habit</button>
           </div>
+
+          <!-- in-panel category subfilter (optional mirror of top pills) -->
+          <div class="sub-filter">
+            <button class="chip is-active" data-subcat="all">All</button>
+            <button class="chip" data-subcat="mind">Mind</button>
+            <button class="chip" data-subcat="body">Body</button>
+            <button class="chip" data-subcat="soul">Soul</button>
+          </div>
+
           <ul id="habitList" class="habit-list"></ul>
         </article>
 
         <article class="card">
           <h3 class="h3">Weekly Overview</h3>
           <div id="weekBars" class="week-bars"></div>
-          <p class="muted small">Each bar = % habits completed each day</p>
+          <p class="muted small">Each bar = % habits completed each day (respects category filter)</p>
         </article>
       </section>
 
