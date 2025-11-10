@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Habits That Stick (Purpose & Values) | TeenWell</title>
+    <link rel="stylesheet" href="../style.css" />
+    <style>
+        .guest [data-auth="in"]{display:none!important;}
+        .auth  [data-auth="out"]{display:none!important;}
+    </style>
+</head>
+<body class="guest">
+
+<header class="site-header">
+    <div class="container nav">
+        <a class="logo" href="../index.html">TeenWell</a>
+        <nav class="nav-links">
+            <a href="../index.html">Home</a>
+            <a class="active" href="./">Blog</a>
+            <a href="../resources.html">Resources</a>
+            <a href="../about.html">About</a>
+            <a href="../roadmap.html">Roadmap</a>
+            <a href="../contact.html">Contact</a>
+        </nav>
+        <div class="nav-cta">
+            <a class="btn btn-ghost" href="../sign-up.html" data-auth="out">Sign up</a>
+            <a class="btn" href="./" data-auth="out">Learn</a>
+            <a class="btn btn-ghost" href="../dashboard.html" data-auth="in">My Dashboard</a>
+            <button id="logoutBtn" class="btn" data-auth="in">Log out</button>
+        </div>
+    </div>
+</header>
+
+<main class="section">
+    <div class="container narrow">
+        <p class="kicker">Personal Growth · 6 min read</p>
+        <h1 class="h1">Habits That Stick (Purpose & Values)</h1>
+        <p class="lead">Build lasting habits by connecting actions to who you want to be — not just what you want to do.</p>
+
+        <article class="prose">
+            <h2 class="h3">Start with purpose: the biggest lever</h2>
+            <p>Habits fail when they feel pointless. When a habit reflects a value — like health, calm, or learning — it becomes meaningful. Ask: "What kind of person do I want to be?" and let that answer guide one small daily action.</p>
+
+            <h2 class="h3">Define 2–3 guiding values</h2>
+            <ul>
+                <li>Pick values that matter to you (e.g., curiosity, resilience, balance).</li>
+                <li>Write a short sentence: "I am someone who values X."</li>
+                <li>Use that sentence to test habit ideas — choose habits that prove the value.</li>
+            </ul>
+
+            <h2 class="h3">Identity-based habits over outcome-based habits</h2>
+            <p>Outcomes (lose 10 lbs, read 20 books) are useful, but identity habits stick longer. Instead of "I want to run," think "I am a person who moves every day." Small consistent actions reinforce identity.</p>
+
+            <h2 class="h3">Make the habit tiny</h2>
+            <ul>
+                <li>Start so small it's impossible to fail (1 minute of reading, one push-up).</li>
+                <li>Small wins build momentum and protect your identity when life gets busy.</li>
+            </ul>
+
+            <h2 class="h3">Stack habits and shape your environment</h2>
+            <p>Attach new habits to reliable triggers (after brushing teeth, open the book). Remove friction for good choices (place water on your desk) and add friction for bad ones (hide the phone).</p>
+
+            <h2 class="h3">Use prompts, practice, and rewards</h2>
+            <ul>
+                <li>Prompt: a consistent time, place, or existing habit that triggers the new behavior.</li>
+                <li>Practice: repeat the tiny habit daily until it feels automatic.</li>
+                <li>Reward: a small, immediate payoff — praise yourself, track a checkmark, or log XP in your <a href="../dashboard.html">Dashboard</a>.</li>
+            </ul>
+
+            <h2 class="h3">Measure & reflect weekly</h2>
+            <p>Track whether you did the habit and reflect briefly each week. Ask: "What worked? What got in the way?" Use answers to adjust timing, size, or environment rather than giving up.</p>
+
+            <h2 class="h3">A simple 7-day practice</h2>
+            <ol>
+                <li>Pick one value and one tiny habit tied to it.</li>
+                <li>Set a clear prompt (time/place) and reduce friction.</li>
+                <li>Do the habit every day for one week and log it.</li>
+                <li>After seven days, review and either scale it a little or keep it tiny until it's automatic.</li>
+            </ol>
+
+            <p class="muted">Quick example: Value = "wellness." Tiny habit = "drink one glass of water right after waking." Prompt = glass by the bed. Reward = check the habit in your Dashboard.</p>
+        </article>
+
+        <div class="cta cta-light" style="margin-top:1.25rem">
+            <div class="cta-inner">
+                <h3 class="h3">Add the "Values Check" habit</h3>
+                <p>Earn +5 XP each day you reflect on one action that matches your values.</p>
+                <a class="btn" href="../dashboard.html">Open Dashboard</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="container footer-grid">
+        <div>
+            <a class="logo" href="../index.html">TeenWell</a>
+            <p class="muted small">© 2025 TeenWell — Educational content only.</p>
+        </div>
+    </div>
+</footer>
+
+<script type="module">
+    import { auth, doSignOut } from '../auth.js';
+    import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+    const root = document.body;
+    onAuthStateChanged(auth, (user)=> {
+        root.classList.toggle('auth', !!user);
+        root.classList.toggle('guest', !user);
+    });
+    document.getElementById('logoutBtn')?.addEventListener('click', (e)=>{ e.preventDefault(); doSignOut(); });
+</script>
+
+</body>
+</html>
