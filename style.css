@@ -375,6 +375,15 @@ details[open]{ border-color:#f0d8ce; }
 .reveal.is-visible{ opacity:1; transform:none; }
 .signup-msg{ margin-top:.5rem; display:block; color:#335d47; }
 
+a {
+  color: #0b6e4f;            /* calm green tone */
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #065f46;
+}
+
 /* ===================== RESPONSIVE BREAKPOINTS ===================== */
 /* Mobile (<=600px) */
 @media (max-width:600px){
